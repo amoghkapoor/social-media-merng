@@ -1,0 +1,36 @@
+@import "../defaults/colors";
+
+.navbar-container {
+	width: 100vw;
+	height: 50px;
+	background-color: #fff;
+	color: #000;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 2rem;
+	font-size: 1.25rem;
+	font-weight: 500;
+	border-bottom: 1px solid rgb(219, 219, 219);
+
+	.navbar-right {
+		width: 22.5%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 100%;
+	}
+
+	.nav-link-register {
+		background-color: $green;
+		color: #fff;
+		padding: 0.5rem 0.75rem;
+		border-radius: 0.1rem;
+	}
+
+	.nav-link-selected {
+		padding-bottom: 0.2rem;
+		border-bottom: 1.5px solid $green;
+		color: $green;
+	}
+}
