@@ -1,10 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
+import {useHistory} from 'react-router-dom'
 
+import  {AuthContext} from '../context/auth'
 import { useForm } from '../utils/hooks';
 
-function Register() {
+function Login() {
+  const history = useHistory()
+  const context = useContext(AuthContext)
   const [errors, setErrors] = useState({});
 
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
@@ -13,9 +17,9 @@ function Register() {
   });
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    update(_,{data: {login}}){
-        console.log(login);
-        window.location.assign('/')
+    update(_,{data: {login: userData}}){
+        context.login(userData)
+        history.push("/")
     },
     onError(err) {
         setErrors(err.graphQLErrors[0].extensions.errors);
@@ -77,4 +81,4 @@ const LOGIN_USER = gql`
   }
 `;
 
-export default Register;
+export default Login;

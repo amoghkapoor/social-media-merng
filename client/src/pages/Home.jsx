@@ -11,8 +11,6 @@ const Home = () => {
 
 if(!loading) {
     posts = data.getPosts
-
-    console.log(posts)
 }
 
     return (
