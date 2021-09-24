@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 
 import { useForm } from '../utils/hooks';
 
-function Register(props) {
+function Register() {
   const [errors, setErrors] = useState({});
 
   const { onChange, onSubmit, values } = useForm(registerUser, {
@@ -16,22 +16,21 @@ function Register(props) {
 
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(_,{data: { register: userData }}){
-        console.log(userData)
-      props.history.push('/');
+        window.location.assign('/')
     },
     onError(err) {
-      setErrors(err.graphQLErrors[0].extensions.errors);
+        setErrors(err.graphQLErrors[0].extensions.errors);
     },
     variables: values
   });
 
   function registerUser() {
-    console.log(errors);
     addUser();
   }
   
   return (
-    <div className="">
+      <>
+      {loading && ("Loading")}
         <form onSubmit={onSubmit} noValidate>
             <h1>Register</h1>
             <input
@@ -66,12 +65,12 @@ function Register(props) {
             Register
             </button>
         </form>
-    {Object.keys(errors).length > 0 && (
-        Object.values(errors).map(value => (
-            <li key={value}>{value}</li>
-        ))
-    )}
-    </div>
+        {Object.keys(errors).length > 0 && (
+            Object.values(errors).map(value => (
+                <li key={value}>{value}</li>
+            ))
+        )}
+    </>
   );
 }
 
