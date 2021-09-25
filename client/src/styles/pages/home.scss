@@ -1,8 +1,15 @@
+.home-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 .posts-grid {
 	margin: 3rem;
-	padding: 0 3rem;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 1rem;
-	place-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 40%;
+	height: 500px;
 }

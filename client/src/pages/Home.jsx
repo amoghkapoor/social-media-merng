@@ -16,7 +16,7 @@ if(!loading) {
     return (
         <>
         <Navbar/>
-        <div>
+        <div className="home-container">
             Recent posts
             {loading 
             ? ("Loading data...")
