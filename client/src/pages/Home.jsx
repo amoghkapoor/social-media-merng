@@ -2,7 +2,7 @@ import React from 'react'
 import {useQuery} from "@apollo/client"
 import gql from 'graphql-tag'
 
-import {PostCard} from '../components'
+import {Navbar, PostCard} from '../components'
 import "../styles/pages/home.scss"
 
 const Home = () => {
@@ -14,6 +14,8 @@ if(!loading) {
 }
 
     return (
+        <>
+        <Navbar/>
         <div>
             Recent posts
             {loading 
@@ -27,6 +29,7 @@ if(!loading) {
             )
             }
         </div>
+        </>
     )
 }
 

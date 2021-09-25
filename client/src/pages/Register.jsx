@@ -22,6 +22,7 @@ function Register() {
     update(_,{data: { register: userData }}){
         context.login(userData)
         history.push("/")
+        window.location.reload();
     },
     onError(err) {
         setErrors(err.graphQLErrors[0].extensions.errors);
