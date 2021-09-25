@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom'
 
+import { AuthContext } from '../context/auth';
+
 const AuthRoute = ({ component: Component, ...rest }) => {
-    let token = localStorage.getItem("jwtToken")
-    console.log(token)
+    const { user } = useContext(AuthContext)
     return (
         <Route
             {...rest}
             render={props =>
-                token !== null ? <Component {...props} /> : <Redirect to="/" />
+                user !== null ? <Component {...props} /> : <Redirect to="/" />
             }
         />
     )

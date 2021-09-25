@@ -1,9 +1,13 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {NavLink} from 'react-router-dom'
+
+import { AuthContext } from '../context/auth'
 
 import "../styles/components/navbar.scss"
 
 const Navbar = () => {
+    const {logout} = useContext(AuthContext)
+
     return (
         <nav className="navbar-container">
             <div className="navbar-left">
@@ -12,12 +16,9 @@ const Navbar = () => {
                 </NavLink>
             </div>
             <div className="navbar-right">
-            <NavLink to="/login" className="nav-link" activeClassName="nav-link-selected">
-                Login
-            </NavLink>                
-            <NavLink to="/register" className="nav-link-register" >
-                Register
-            </NavLink>
+                <button onClick={logout}>
+                    Logout
+                </button>
             </div>
         </nav>
     )
