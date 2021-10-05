@@ -11,8 +11,11 @@ const Post = require("../../models/Post")
 function generateToken(user) {
     return token = jwt.sign({
         id: user.id,
-        email: user.email,
+        name: user.name,
         username: user.username,
+        avatarUrl: user.avatar,
+        email: user.email,
+
     }, secret_key, { expiresIn: '1h' })
 }
 
@@ -47,7 +50,6 @@ module.exports = {
                     errors
                 })
             }
-
             const token = generateToken(user)
 
             return {
@@ -56,12 +58,13 @@ module.exports = {
                 token
             }
         },
-        async register(_, { registerInput: { name, username, email, password, confirmPassword } }) {
+        async register(_, { registerInput: { name, avatarUrl, username, email, password, confirmPassword } }) {
             const { valid, errors } = validateRegisterInput(
                 username,
                 email,
                 password,
-                confirmPassword
+                confirmPassword,
+                name
             )
             if (!valid) {
                 throw new UserInputError('Errors', { errors });
@@ -88,6 +91,7 @@ module.exports = {
 
             const newUser = new User({
                 name,
+                avatarUrl,
                 email,
                 username,
                 password,
@@ -123,7 +127,9 @@ module.exports = {
                 const updatedUser = await User.findByIdAndUpdate(id, { username: username, email: email }, { new: true })
 
                 const updatedPost = await Post.updateMany({ user: id }, { username: username })
-
+                // const likes = await posts.set()
+                const posts = await Post.updateMany({ "likes.user": id }, { "likes.username": username })
+                console.log(posts)
                 const token = generateToken(updatedUser)
 
                 return {

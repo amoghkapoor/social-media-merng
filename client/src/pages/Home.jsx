@@ -14,6 +14,8 @@ const Home = () => {
       posts = data.getPosts
     }
 
+    
+
     return (
         <>
         <Navbar/>
@@ -62,5 +64,6 @@ const FETCH_POSTS_QUERY = gql`
     }
     }
 `
+
 
 export default Home

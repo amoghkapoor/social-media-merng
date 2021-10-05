@@ -1,19 +1,18 @@
 import React, { useContext }from 'react'
 import moment from 'moment'
 import _ from 'lodash'
-import * as FaIcon from "react-icons/fa"
+// import * as FaIcon from "react-icons/fa"
 import * as BsIcon from "react-icons/bs"
 import * as VscIcon from "react-icons/vsc"
 import {
     Menu,
     MenuItem,
     MenuButton,
-    SubMenu
   } from '@szhsin/react-menu';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import gql from 'graphql-tag'
-import {useMutation} from "@apollo/client"
+import {useMutation, useQuery} from "@apollo/client"
 
 import {LikeButton} from "./"
 import {AuthContext} from "../context/auth"
@@ -28,8 +27,38 @@ const PostCard = ({post: {body, username, createdAt, id, likes, comments}}) => {
     let commentCount = comments.length
 
     const [deletePost] = useMutation(DELETE_POST_MUTATION, {
-        variables: {postId: id}
+        variables: {postId: id},
+        update(proxy, result) {
+            const data = proxy.readQuery({
+                query: FETCH_POSTS_QUERY,
+              });
+        
+              let newData = [...data.getPosts];
+              newData = [result.data.createPost, ...newData];
+              proxy.writeQuery({
+                query: FETCH_POSTS_QUERY,
+                data: {
+                  ...data,
+                  getPosts: {
+                    newData,
+                  },
+                },
+              });
+        },
+        onError(err) {
+           console.error(err)
+        },
     })
+
+    const {loading, data} = useQuery(FETCH_USER, {
+        variables: {username: username}
+    })
+
+    let userData
+
+    if(!loading){
+        userData = data.getUser
+    }
 
     const onDelete = () => {
         confirmAlert({
@@ -49,10 +78,12 @@ const PostCard = ({post: {body, username, createdAt, id, likes, comments}}) => {
     }
 
     return (
+        <>
+        {userData && (
         <div className="post-card">
             <div className="post-user-container">
                 <Link to={userLink}>
-                    <div className="post-user-image"><FaIcon.FaRegUserCircle/></div>
+                    <div className="post-user-image"><img src={userData.avatarUrl} alt={userData.name}/></div>
                 </Link>
                 <Link to={userLink}>
                     <div className="post-username">{username}</div>
@@ -85,7 +116,8 @@ const PostCard = ({post: {body, username, createdAt, id, likes, comments}}) => {
                 </Link>
 
                 </div>
-        </div>
+        </div>)}
+        </>
     )
 }
 
@@ -94,5 +126,36 @@ export default PostCard
 const DELETE_POST_MUTATION = gql`
     mutation deletePost($postId: ID!){
         deletePost(postId: $postId)
+    }
+`
+
+const FETCH_POSTS_QUERY = gql`
+    query {
+        getPosts{
+        id
+        body
+        username
+        createdAt
+        likes{
+            id
+            username
+            createdAt
+        }
+        comments{
+            id
+            username
+            body
+            createdAt
+        }
+    }
+    }
+`
+
+const FETCH_USER = gql`
+    query getUser($username: String!){
+        getUser(username: $username){
+            name
+            avatarUrl
+        }
     }
 `

@@ -7,7 +7,7 @@ module.exports = {
     Query: {
         async getPost(_, { postId }) {
             try {
-                const post = await Post.findById({ postId })
+                const post = await Post.findById(postId)
                 if (post) {
                     return post
                 }
@@ -22,6 +22,7 @@ module.exports = {
         async getPosts() {
             try {
                 const posts = await Post.find({}).sort({ createdAt: -1 })
+                console.log(posts)
                 return posts
             }
             catch (error) {
@@ -31,6 +32,7 @@ module.exports = {
         async getPostsByUsername(_, { username }) {
             try {
                 const posts = await Post.find({ username }).sort({ createdAt: -1 })
+                console.log(posts)
                 return posts
             }
             catch (error) {
@@ -75,8 +77,7 @@ module.exports = {
             }
         },
         async likePost(_, { postId }, context) {
-            const { username } = checkAuth(context)
-
+            const { username, id } = checkAuth(context)
             const post = await Post.findById(postId)
             if (post) {
                 if (post.likes.find(like => like.username === username)) {
@@ -86,6 +87,7 @@ module.exports = {
                 else {
                     // Not liked
                     post.likes.push({
+                        user: id,
                         username,
                         createdAt: new Date().toISOString()
                     })

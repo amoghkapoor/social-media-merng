@@ -14,11 +14,16 @@ function Register() {
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
 
+  let randomString = Math.random().toString(36).replace(/[^a-z]+/g)
+  let  link = `https://avatars.dicebear.com/api/bottts/${randomString}.svg`
+
   const { onChange, onSubmit, values } = useForm(registerUser, {
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
+    name: "",
+    avatarUrl: link
   });
 
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
@@ -28,12 +33,20 @@ function Register() {
       window.location.reload();
     },
     onError(err) {
+      // console.log(err.clientErrors)
+      // console.log(err.extraInfo)
+      // console.log(err.graphQLErrors)
+      // console.log(err.message)
+      // console.log(err.networkError)
+      // console.log(err.name)
+      // console.log(err.stack)
       setErrors(err.graphQLErrors[0].extensions.errors);
     },
     variables: values,
   });
 
   function registerUser() {
+    
     addUser();
   }
 
@@ -52,6 +65,20 @@ function Register() {
           className="register-form"
         >
           <h1 className="register-form-title">Register</h1>
+
+          <div className="register-input-container">
+            <label htmlFor="name" className="register-form-label">
+              Name
+            </label>
+            <input
+              name="name"
+              type="text"
+              value={values.name}
+              onChange={onChange}
+              className="register-input"
+            />
+          </div>
+
           <div className="register-input-container">
             <label htmlFor="username" className="register-form-label">
               Username
@@ -134,9 +161,11 @@ function Register() {
 const REGISTER_USER = gql`
   mutation register(
     $username: String!
+    $avatarUrl: String!
     $email: String!
     $password: String!
     $confirmPassword: String!
+    $name: String!
   ) {
     register(
       registerInput: {
@@ -144,9 +173,13 @@ const REGISTER_USER = gql`
         email: $email
         password: $password
         confirmPassword: $confirmPassword
+        name: $name
+        avatarUrl: $avatarUrl
       }
     ) {
       id
+      name
+      avatarUrl
       email
       username
       createdAt
