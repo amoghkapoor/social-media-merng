@@ -13,7 +13,7 @@ import "../styles/components/navbar.scss"
 const Navbar = () => {
     const location = useLocation()
     let pathname = location.pathname
-
+    
     const [fill, setFill] = useState({
         home: true,
         user: false,
@@ -21,38 +21,40 @@ const Navbar = () => {
     })
 
     useEffect(() => {
-        switch(pathname){
-            case "/home": 
+
+            if (pathname === "/home"){
                 setFill({
                     home: true,
                     user: false,
                     add: false,
                 })
-                break;
-            case "/profile":
+            }
+            else if(pathname.includes("/profile")){
                 setFill({
                     home: false,
                     user: true,
                     add: false,
                 })
-                break;
-            case "/add-post":
+            }
+            else if (pathname === "/add-post"){
                 setFill({
                     home: false,
                     user: false,
                     add: true,
                 })
-                break;
-            default:
+            }
+            else{
                 setFill({
                     home: false,
                     user: false,
                     add: false,
                 })
-        }
+            }
+
     }, [pathname])
     
-    const {logout} = useContext(AuthContext)
+    const {user: {username}, logout} = useContext(AuthContext)
+    const link = `/profile/${username}`
 
     return (
         <nav className="navbar-container">
@@ -77,7 +79,7 @@ const Navbar = () => {
                 </Link>
                 <ReactTooltip effect="solid" place="bottom"/>
 
-                <Link to="/profile">
+                <Link to={link}>
                 <button data-tip="Profile" className="nav-btn">
                     {fill.user ? <FaIcon.FaUser/> : <FaIcon.FaRegUser/>}
                 </button>

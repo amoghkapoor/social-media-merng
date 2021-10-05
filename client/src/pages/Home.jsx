@@ -1,6 +1,7 @@
 import React from 'react'
 import {useQuery} from "@apollo/client"
 import gql from 'graphql-tag'
+import HashLoader from "react-spinners/HashLoader";
 
 import {Navbar, PostCard} from '../components'
 import "../styles/pages/home.scss"
@@ -9,15 +10,22 @@ const Home = () => {
     const {loading, data} = useQuery(FETCH_POSTS_QUERY)
     let posts
 
-if(!loading) {
-    posts = data.getPosts
-}
+    if(!loading) {
+      posts = data.getPosts
+    }
 
     return (
         <>
         <Navbar/>
+        {loading && (
+            <div className="loader-container">
+            <HashLoader loading={loading} size={150} color={"#4482ff"} />
+            </div>
+        )}
         <div className="home-container">
-            Recent posts
+            <div className="home-heading">
+                Recent posts
+            </div>
             {loading 
             ? ("Loading data...")
             : (

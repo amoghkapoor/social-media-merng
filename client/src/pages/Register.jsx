@@ -106,7 +106,7 @@ function Register() {
 
          <div className="register-input-container">
                     <button type="submit" className="register-form-btn">
-                        Login
+                        Register
                     </button>
                     <p className="register-link-container">
                       Already have an account?

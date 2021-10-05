@@ -6,6 +6,7 @@ const { UserInputError } = require("apollo-server")
 const { validateRegisterInput, validateLoginInput, validateUsernameAndEmail, validatePassword } = require("../../utils/validators")
 const secret_key = process.env.SECRET_KEY
 const User = require("../../models/User")
+const Post = require("../../models/Post")
 
 function generateToken(user) {
     return token = jwt.sign({
@@ -16,6 +17,12 @@ function generateToken(user) {
 }
 
 module.exports = {
+    Query: {
+        async getUser(_, { username }) {
+            const user = await User.findOne({ username })
+            return user
+        }
+    },
     Mutation: {
         async login(_, { username, password }) {
             const { errors, valid } = validateLoginInput(username, password)
@@ -49,7 +56,7 @@ module.exports = {
                 token
             }
         },
-        async register(_, { registerInput: { username, email, password, confirmPassword } }) {
+        async register(_, { registerInput: { name, username, email, password, confirmPassword } }) {
             const { valid, errors } = validateRegisterInput(
                 username,
                 email,
@@ -68,10 +75,19 @@ module.exports = {
                     }
                 })
             }
+            const emailUser = await User.findOne({ email })
+            if (emailUser) {
+                throw new UserInputError("Email already linked with another account", {
+                    errors: {
+                        email: "Email already liked with another account"
+                    }
+                })
+            }
 
             password = await bcrypt.hash(password, 12)
 
             const newUser = new User({
+                name,
                 email,
                 username,
                 password,
@@ -88,7 +104,7 @@ module.exports = {
                 token
             }
         },
-        async updateUser(_, { updateInput: { username, email, id } }, context) {
+        async updateUser(_, { updateInput: { username, email, id } }) {
             const { valid, errors } = validateUsernameAndEmail(username, email)
 
             if (!valid) {
@@ -106,6 +122,8 @@ module.exports = {
             else {
                 const updatedUser = await User.findByIdAndUpdate(id, { username: username, email: email }, { new: true })
 
+                const updatedPost = await Post.updateMany({ user: id }, { username: username })
+
                 const token = generateToken(updatedUser)
 
                 return {
@@ -115,7 +133,7 @@ module.exports = {
                 }
             }
         },
-        async updatePassword(_, { updatePasswordInput: { password, confirmPassword, id } }, context) {
+        async updatePassword(_, { updatePasswordInput: { password, confirmPassword, id } }) {
             const { valid, errors } = validatePassword(password, confirmPassword)
 
             if (!valid) {
