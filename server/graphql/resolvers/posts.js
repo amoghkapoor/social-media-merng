@@ -22,7 +22,6 @@ module.exports = {
         async getPosts() {
             try {
                 const posts = await Post.find({}).sort({ createdAt: -1 })
-                console.log(posts)
                 return posts
             }
             catch (error) {
@@ -32,7 +31,6 @@ module.exports = {
         async getPostsByUsername(_, { username }) {
             try {
                 const posts = await Post.find({ username }).sort({ createdAt: -1 })
-                console.log(posts)
                 return posts
             }
             catch (error) {

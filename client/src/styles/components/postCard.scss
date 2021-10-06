@@ -46,13 +46,16 @@
 		}
 
 		.delete-menu-button {
-			color: rgb(218, 74, 74);
+			color: $red;
 		}
 	}
 
 	.post-card-content {
 		padding: 1rem;
 		padding-top: 0;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 
 		.post-body {
 			padding-left: 2rem;
@@ -62,7 +65,6 @@
 		.post-createdAt {
 			color: #838383;
 			font-size: 0.8rem;
-			text-align: right;
 		}
 	}
 
@@ -264,7 +266,7 @@
 
 	button:first-child {
 		color: white;
-		background-color: red;
+		background-color: $red;
 	}
 
 	button {

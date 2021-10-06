@@ -6,7 +6,7 @@ import { IconContext } from "react-icons";
 
 import {AuthContext} from "../context/auth"
 
-const LikeButton = ({id, likes}) => {
+const LikeButton = ({id, likes, count}) => {
     const {user} = useContext(AuthContext)
     const [liked, setLiked] = useState(false)
     let likeCount = likes.length
@@ -26,7 +26,7 @@ const LikeButton = ({id, likes}) => {
 
     const likedButton = 
         liked ? (
-            <IconContext.Provider value={{color: "red"}}>
+            <IconContext.Provider value={{color: "#f44336"}}>
                 <button className="like-btn">
                     <BsIcon.BsHeartFill/>
                 </button>
@@ -37,12 +37,23 @@ const LikeButton = ({id, likes}) => {
             </button>
         )
 
-    return (
-        <div className="post-like-action" onClick={likePost}>
-            {likedButton}
-            {likeCount}
-        </div>
-    )
+    if(count){
+        return(
+            <div className="post-like-action" onClick={likePost}>
+                {likedButton}
+                {likeCount}
+            </div>
+        )
+    }
+    else{
+        return(
+            <div className="post-like-action" onClick={likePost}>
+                {likedButton}
+            </div>
+        )
+    }
+
+    
 }
 
 export default LikeButton

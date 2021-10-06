@@ -1,7 +1,6 @@
 import React, { useContext }from 'react'
 import moment from 'moment'
 import _ from 'lodash'
-// import * as FaIcon from "react-icons/fa"
 import * as BsIcon from "react-icons/bs"
 import * as VscIcon from "react-icons/vsc"
 import {
@@ -13,11 +12,13 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import gql from 'graphql-tag'
 import {useMutation, useQuery} from "@apollo/client"
+import { Link } from 'react-router-dom'
 
 import {LikeButton} from "./"
 import {AuthContext} from "../context/auth"
+
 import "../styles/components/postCard.scss"
-import { Link } from 'react-router-dom'
+
 
 const PostCard = ({post: {body, username, createdAt, id, likes, comments}}) => {
     let postLink = `/post/${id}`
@@ -90,11 +91,12 @@ const PostCard = ({post: {body, username, createdAt, id, likes, comments}}) => {
                 </Link>
                 <Menu menuButton={<MenuButton className="menu-btn"><BsIcon.BsThreeDots/></MenuButton>} transition>
                     {user.username === username && (<MenuItem onClick={onDelete} className="delete-menu-button">Delete</MenuItem>)}
-                    
-                    <MenuItem>
-                        <Link to = {postLink}>Go to post
-                        </Link>
-                    </MenuItem>
+                    <Link to = {postLink}>
+                        <MenuItem>
+                            Go to post
+                        </MenuItem>
+                    </Link>
+
                 </Menu>
             </div>
             <div className="post-card-content">
@@ -102,7 +104,7 @@ const PostCard = ({post: {body, username, createdAt, id, likes, comments}}) => {
                 <div className="post-createdAt">{_.capitalize(moment(createdAt).fromNow(true))}</div>
             </div>
             <div className="post-actions">
-                    <LikeButton id={id} likes={likes}/>
+                    <LikeButton id={id} likes={likes} count={true}/>
                 <Link to = {postLink}>
                     <div className="post-comment-action">
                         <button className="comment-btn">
