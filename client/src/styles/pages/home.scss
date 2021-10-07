@@ -1,3 +1,5 @@
+@import "../defaults/colors";
+
 .home-container {
 	display: flex;
 	flex-direction: column;
@@ -21,5 +23,25 @@
 
 	@media only screen and (min-width: 768px) {
 		width: 60%;
+	}
+}
+
+.react-scrolltop-button {
+	background-color: #fff;
+	padding: 0.75rem !important;
+	border-color: $sky-blue !important;
+	right: 3% !important;
+
+	&:hover {
+		background-color: $sky-blue !important;
+
+		svg {
+			fill: #fff;
+		}
+	}
+
+	svg {
+		transform: scale(1.2);
+		fill: $sky-blue;
 	}
 }
