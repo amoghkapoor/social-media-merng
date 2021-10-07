@@ -1,22 +1,24 @@
-import React, {useContext, useState} from 'react'
+import React, { useState} from 'react'
 import gql from 'graphql-tag'
-import {useMutation} from "@apollo/client"
+import {useMutation, useQuery} from "@apollo/client"
 import {useHistory} from 'react-router-dom'
 
+import AddPostSvg from "../assets/AddPostSvg"
 import {useForm} from "../utils/hooks"
-import {AuthContext} from "../context/auth";
 import { Navbar } from '../components'
 import "../styles/pages/addPost.scss"
 
 const AddPost = () => {
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState(null)
     const history = useHistory();
 
     const { onChange, onSubmit, values } = useForm(createPostCallback, {
         body: ""
     });
 
-      const [createPost, { loading }] = useMutation(CREATE_POST_MUTATION, {
+    const { data} = useQuery(FETCH_POSTS_QUERY)
+
+      const [createPost, ] = useMutation(CREATE_POST_MUTATION, {
         variables: values,
         update(proxy, result) {
           const data = proxy.readQuery({
@@ -38,7 +40,9 @@ const AddPost = () => {
           history.push("/")
         },
         onError(err) {
-            setErrors(err.graphQLErrors[0].extensions.errors);
+          setErrors(err.graphQLErrors[0].message);
+          let input = document.querySelector(".add-post-caption-input")  
+          input.focus()        
         },
       });
     
@@ -50,16 +54,33 @@ const AddPost = () => {
         <>
             <Navbar/>
             <div className="add-post-container">
-                Add post
+              
+              <div className="left">
+              <div className="heading">Add post</div>
                 <form onSubmit={onSubmit} className="add-post-form">
-                    <input 
+                  <div className="input-wrapper">
+                  <input 
                         type="text" 
-                        className=""
+                        className={errors ? "add-post-caption-input error" : "add-post-caption-input" }
                         name="body"
                         onChange={onChange}
+                        autoComplete="off"
+                        placeholder="Caption"
                     />
-                    <button type="submit">Submit</button>
+                    <label htmlFor="body" className="caption-label">Caption</label>
+                  </div>
+                    <button type="submit" className="post-submit-btn">Submit</button>
                 </form>
+                {errors && (
+                  <div className="error-container">
+                    1.  {errors}
+                  </div>
+                )}
+              </div>
+
+                <div className="svg-container">
+                <AddPostSvg/>
+                </div>
             </div>
         </>
     )
