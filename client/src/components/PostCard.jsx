@@ -19,8 +19,7 @@ import {AuthContext} from "../context/auth"
 
 import "../styles/components/postCard.scss"
 
-
-const PostCard = ({post: {body, username, createdAt, id, likes, comments}}) => {
+const PostCard = ({post: {body, username, createdAt, id, likes, comments, edited}}) => {
     let postLink = `/post/${id}`
     let userLink = `/profile/${username}`
 
@@ -68,7 +67,9 @@ const PostCard = ({post: {body, username, createdAt, id, likes, comments}}) => {
             buttons: [
               {
                 label: 'Yes',
-                onClick: () => deletePost()
+                onClick: () => {
+                    deletePost()
+                }
               },
               {
                 label: 'No',
@@ -84,18 +85,33 @@ const PostCard = ({post: {body, username, createdAt, id, likes, comments}}) => {
         <div className="post-card">
             <div className="post-user-container">
                 <Link to={userLink}>
-                    <div className="post-user-image"><img src={userData.avatarUrl} alt={userData.name}/></div>
+                    <div className="post-user-image">
+                        <img src={userData.avatarUrl} alt={userData.name}/>
+                    </div>
                 </Link>
                 <Link to={userLink}>
                     <div className="post-username">{username}</div>
                 </Link>
+                
                 <Menu menuButton={<MenuButton className="menu-btn"><BsIcon.BsThreeDots/></MenuButton>} transition>
-                    {user.username === username && (<MenuItem onClick={onDelete} className="delete-menu-button">Delete</MenuItem>)}
+                    {user.username === username && (
+                    <>
+                        <MenuItem onClick={onDelete} className="delete-menu-button">
+                            Delete
+                        </MenuItem>
+                        <Link to ={`/edit/${id}`}>
+                        <MenuItem>
+                            Edit Post
+                        </MenuItem>
+                    </Link>
+                    </>    
+                    )}
                     <Link to = {postLink}>
                         <MenuItem>
                             Go to post
                         </MenuItem>
                     </Link>
+                    
 
                 </Menu>
             </div>
@@ -103,8 +119,13 @@ const PostCard = ({post: {body, username, createdAt, id, likes, comments}}) => {
                 <div className="post-body">{body}</div>
                 <div className="post-createdAt">{_.capitalize(moment(createdAt).fromNow(true))}</div>
             </div>
+            { edited && (
+                    <div className="edited">
+                        (edited)
+                    </div>
+                )}
             <div className="post-actions">
-                    <LikeButton id={id} likes={likes} count={true}/>
+                <LikeButton id={id} likes={likes} count={true}/>
                 <Link to = {postLink}>
                     <div className="post-comment-action">
                         <button className="comment-btn">
@@ -138,6 +159,7 @@ const FETCH_POSTS_QUERY = gql`
         body
         username
         createdAt
+        edited
         likes{
             id
             username
