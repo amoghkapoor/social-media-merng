@@ -12,6 +12,7 @@ import { IconContext } from "react-icons";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
+import NoCommentImage from "../assets/no-comments.png"
 import {CommentCard} from "../components"
 import "../styles/pages/singlePost.scss"
 
@@ -117,6 +118,7 @@ const SinglePost = () => {
         else{
             btn.disabled = false
             btn.style.cursor = "pointer"
+
         }
     }
 
@@ -150,6 +152,11 @@ const SinglePost = () => {
                             <div className="post-createdAt">
                                 Posted on {moment(post?.createdAt).format('kk:mm, MMMM DD, YYYY')}
                                 <div className="post-time">{_.upperCase(moment(post?.createdAt).fromNow())}</div>
+                                {post?.edited && (
+                                    <div className="edited">
+                                    <span>(edited)</span>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="likes-and-comment">
@@ -245,9 +252,9 @@ const SinglePost = () => {
                         ))}
                     </>
                     ): (
-                        <>
-                        No Comments
-                        </>
+                        <div className="no-comment">
+                            <img src={NoCommentImage} alt="" />
+                        </div>
                     )}
                 </div>
             </div>
@@ -282,6 +289,7 @@ const GET_POST = gql`
         body
         username
         createdAt
+        edited
         likes{
             id
             username
@@ -292,6 +300,7 @@ const GET_POST = gql`
             username
             body
             createdAt
+            edited
         }
         }
     }
@@ -320,6 +329,7 @@ const FETCH_POSTS_QUERY = gql`
             username
             body
             createdAt
+            edited
         }
     }
     }
@@ -340,6 +350,7 @@ const CREATE_COMMENT_MUTATION = gql`
                 body
                 username
                 createdAt
+                edited
             }
         }
     }
