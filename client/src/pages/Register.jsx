@@ -46,9 +46,11 @@ function Register() {
   });
 
   function registerUser() {
-    
     addUser();
   }
+
+  console.log(errors)
+
 
   return (
     <>
@@ -75,7 +77,7 @@ function Register() {
               type="text"
               value={values.name}
               onChange={onChange}
-              className="register-input"
+              className={errors.name ? "register-input error" : "register-input"}
             />
           </div>
 
@@ -88,7 +90,7 @@ function Register() {
               type="text"
               value={values.username}
               onChange={onChange}
-              className="register-input"
+              className={errors.username ? "register-input error" : "register-input"}
             />
           </div>
 
@@ -101,7 +103,7 @@ function Register() {
               type="email"
               value={values.email}
               onChange={onChange}
-              className="register-input"
+              className={errors.email ? "register-input error" : "register-input"}
             />
           </div>
 
@@ -114,7 +116,7 @@ function Register() {
               type="password"
               value={values.password}
               onChange={onChange}
-              className="register-input"
+              className={errors.password ? "register-input error" : "register-input"}
             />
           </div>
 
@@ -127,7 +129,7 @@ function Register() {
               type="password"
               value={values.confirmPassword}
               onChange={onChange}
-              className="register-input"
+              className={errors.password ? "register-input error" : "register-input"}
             />
           </div>
 

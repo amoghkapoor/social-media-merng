@@ -34,6 +34,8 @@ function Login() {
         loginUser();
     }
 
+    console.log(errors)
+
     return (
         <>
         {loading && (
@@ -59,7 +61,7 @@ function Login() {
                             type="text"
                             value={values.username}
                             onChange={onChange}
-                            className={"login-input"}
+                            className={errors.username || errors.general ? "login-input error" : "login-input"}
                         />
                     </div>
 
@@ -72,7 +74,7 @@ function Login() {
                             type="password"
                             value={values.password}
                             onChange={onChange}
-                            className="login-input"
+                            className={errors.password || errors.general ? "login-input error" : "login-input"}
                         />
                         <Link to="/forgot-password" className="forget-password">Forgot Password?</Link>
                     </div>
