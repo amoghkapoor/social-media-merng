@@ -68,6 +68,14 @@
 		}
 	}
 
+	.edited {
+		width: 100%;
+		text-align: right;
+		padding-right: 0.5rem;
+		color: #838383;
+		font-size: 0.8rem;
+	}
+
 	.post-actions {
 		display: flex;
 		align-items: center;
