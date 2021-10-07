@@ -8,12 +8,14 @@ const typeDefs = gql`
         username: String!
         comments: [Comment]!
         likes: [Like]!
+        edited: Boolean!
     }
     type Comment{
         id: ID!
         body: String!
         createdAt: String!
         username: String!
+        edited: Boolean!
     }
     type Like{
         id: ID!
@@ -64,6 +66,7 @@ const typeDefs = gql`
         createComment(body: String! postId: ID!): Post!
         deleteComment(postId: ID! commentId: ID!): Post!
         likePost(postId: ID!): Post!
+        editComment(postId: ID! commentId: ID!, body: String!): Post!
     }
 `
 

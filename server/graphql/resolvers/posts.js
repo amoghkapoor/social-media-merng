@@ -50,7 +50,8 @@ module.exports = {
                 body,
                 user: user.id,
                 username: user.username,
-                createdAt: new Date().toISOString()
+                createdAt: new Date().toISOString(),
+                edited: false,
             })
 
             const post = await newPost.save()
@@ -101,12 +102,16 @@ module.exports = {
         async editPost(_, { postId, body }, context) {
             const { username } = checkAuth(context)
 
+            if (body.trim() === "") {
+                throw new Error("Body must not be empty")
+            }
+
             const post = await Post.findById(postId)
 
             if (post) {
                 if (post.username === username) {
 
-                    const updatedPost = await Post.findByIdAndUpdate(postId, { body }, { new: true })
+                    const updatedPost = await Post.findByIdAndUpdate(postId, { body, edited: true }, { new: true })
 
                     return updatedPost
                 }

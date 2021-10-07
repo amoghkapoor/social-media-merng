@@ -8,6 +8,28 @@ const secret_key = process.env.SECRET_KEY
 const User = require("../../models/User")
 const Post = require("../../models/Post")
 
+// const MongoClient = require('mongodb').MongoClient;
+// const assert = require('assert');
+
+// const url = process.env.DATABASE_URL;
+
+// const dbName = 'social-media';
+
+// const client = new MongoClient(url);
+
+// let posts
+
+// client.connect(function (err) {
+//     assert.equal(null, err);
+//     console.log("Connected successfully to server");
+
+//     const db = client.db(dbName);
+//     posts = (db.collection("posts"))
+//     client.close();
+// });
+
+// console.log(posts)
+
 function generateToken(user) {
     return token = jwt.sign({
         id: user.id,
@@ -127,9 +149,11 @@ module.exports = {
                 const updatedUser = await User.findByIdAndUpdate(id, { username: username, email: email }, { new: true })
 
                 const updatedPost = await Post.updateMany({ user: id }, { username: username })
-                // const likes = await posts.set()
-                const posts = await Post.updateMany({ "likes.user": id }, { "likes.username": username })
-                console.log(posts)
+                const posts = await Post.updateMany(
+                    { "likes.user": id },
+                    { $set: { "likes.$.username": username } }
+                )
+
                 const token = generateToken(updatedUser)
 
                 return {
