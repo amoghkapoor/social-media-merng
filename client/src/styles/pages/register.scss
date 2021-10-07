@@ -42,6 +42,35 @@
 				border-radius: 3rem;
 				outline: none;
 				border: 1px solid #ced0d3;
+				transition: all 0.3s ease;
+
+				&:hover:not(.error) {
+					border-color: $blue-400;
+				}
+
+				&:focus:not(.error) {
+					border-color: $sky-blue;
+				}
+			}
+
+			@keyframes shake {
+				0% {
+					transform: translateX(0);
+				}
+				25% {
+					transform: translateX(8px);
+				}
+				75% {
+					transform: translateX(-8px);
+				}
+				100% {
+					transform: translateX(0);
+				}
+			}
+
+			.error {
+				border-color: $red;
+				animation: shake 0.1635s 0s 3;
 			}
 
 			.forget-password {
@@ -70,6 +99,7 @@
 			padding: 1.5rem 3rem;
 			padding-left: 0.55rem;
 			color: rgb(233, 79, 79);
+			pointer-events: none;
 
 			li {
 				list-style-type: decimal;
