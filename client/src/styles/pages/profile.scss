@@ -1,127 +1,127 @@
 @import "../defaults/colors";
 
 .profile-outer-container {
-	margin-top: 2rem;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-	.user-container {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		width: 90%;
-		border-bottom: 1px solid rgb(209, 209, 209);
-		padding-bottom: 2rem;
+    .user-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        border-bottom: 1px solid rgb(209, 209, 209);
+        padding-bottom: 2rem;
 
-		.user-image-container {
-			width: 200px;
-			height: 200px;
-			border-radius: 50%;
-			background-color: $light;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			cursor: pointer;
+        .user-image-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: $light;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
 
-			.user-image {
-				width: 100%;
-				height: 100%;
-				border-radius: 50%;
-				object-fit: cover;
-			}
-		}
+            .user-image {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+        }
 
-		.user-info {
-			width: 70%;
-			height: 100%;
-			display: flex;
-			justify-content: space-between;
-			align-items: flex-end;
+        .user-info {
+            width: 70%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
 
-			&-left {
-				display: flex;
-				flex-direction: column;
+            &-left {
+                display: flex;
+                flex-direction: column;
 
-				.username {
-					font-size: 2rem;
-					margin-bottom: 2rem;
-				}
+                .username {
+                    font-size: 2rem;
+                    margin-bottom: 2rem;
+                }
 
-				.user-name {
-					font-size: 1.25rem;
-					font-weight: 600;
-				}
-			}
+                .user-name {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                }
+            }
 
-			&-right {
-				display: flex;
-				flex-direction: column;
-				align-items: flex-end;
+            &-right {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
 
-				.edit-profile {
-					margin-bottom: 2rem;
-					font-size: 0.85rem;
+                .edit-profile {
+                    margin-bottom: 2rem;
+                    font-size: 0.85rem;
 
-					button {
-						width: fit-content;
-						background-color: transparent;
-						border-color: rgb(175, 175, 175);
-						padding: 0.5rem 0.5rem;
-						border-radius: 0.2rem;
-						cursor: pointer;
-					}
-				}
+                    button {
+                        width: fit-content;
+                        background-color: transparent;
+                        border-color: rgb(175, 175, 175);
+                        padding: 0.5rem 0.5rem;
+                        border-radius: 0.2rem;
+                        cursor: pointer;
+                    }
+                }
 
-				.user-createdAt {
-					font-size: 0.9rem;
-				}
-			}
-		}
-	}
+                .user-createdAt {
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
 
-	.user-posts {
-		margin-top: 2rem;
-		display: flex;
-		width: 90%;
-		min-height: 50vh;
-		height: 100%;
-		flex-direction: column;
-		align-items: flex-start;
-		margin-bottom: 4rem;
+    .user-posts {
+        margin-top: 2rem;
+        display: flex;
+        width: 90%;
+        min-height: 50vh;
+        height: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 4rem;
 
-		&-heading {
-			display: flex;
-			font-size: 1.75rem;
-			margin-bottom: 2rem;
+        &-heading {
+            display: flex;
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
 
-			span {
-				margin-left: 1rem;
-			}
-		}
+            span {
+                margin-left: 1rem;
+            }
+        }
 
-		.user-posts-grid {
-			height: 100%;
-			width: 100%;
-			display: grid;
-			gap: 2rem;
-			grid-template-columns: repeat(3, 1fr);
-		}
-	}
+        .user-posts-grid {
+            height: 100%;
+            width: 100%;
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
 
-	.user-no-posts {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		justify-content: space-evenly;
+    .user-no-posts {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-evenly;
 
-		.no-posts-heading {
-			font-size: 2rem;
-		}
+        .no-posts-heading {
+            font-size: 2rem;
+        }
 
-		svg {
-			width: 30%;
-			height: 100%;
-		}
-	}
+        svg {
+            width: 30%;
+            height: 100%;
+        }
+    }
 }

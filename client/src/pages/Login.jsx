@@ -3,15 +3,14 @@ import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import { useHistory, Link } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
-import PasswordMask from 'react-password-mask';
-import * as BsIcon from "react-icons/bs"
+import PasswordMask from "react-password-mask";
+import * as BsIcon from "react-icons/bs";
 
 import { AuthContext } from "../context/auth";
 import { useForm } from "../utils/hooks";
 import LoginSvg from "../assets/LoginSvg";
 import "../styles/pages/login.scss";
 function Login() {
-
     const history = useHistory();
     const context = useContext(AuthContext);
     const [errors, setErrors] = useState({});
@@ -38,11 +37,15 @@ function Login() {
 
     return (
         <>
-        {loading && (
-            <div className="loader-container">
-            <HashLoader loading={loading} size={150} color={"#4482ff"} />
-            </div>
-        )}
+            {loading && (
+                <div className="loader-container">
+                    <HashLoader
+                        loading={loading}
+                        size={150}
+                        color={"#4482ff"}
+                    />
+                </div>
+            )}
             <div className="login-form-container">
                 <form
                     onSubmit={onSubmit}
@@ -61,7 +64,11 @@ function Login() {
                             type="text"
                             value={values.username}
                             onChange={onChange}
-                            className={errors.username || errors.general ? "login-input error" : "login-input"}
+                            className={
+                                errors.username || errors.general
+                                    ? "login-input error"
+                                    : "login-input"
+                            }
                         />
                     </div>
 
@@ -80,32 +87,42 @@ function Login() {
                             name="password"
                             type="password"
                             value={values.password}
-                            inputClassName={errors.password || errors.general ? "login-input error" : "login-input"}
+                            inputClassName={
+                                errors.password || errors.general
+                                    ? "login-input error"
+                                    : "login-input"
+                            }
                             onChange={onChange}
-                            showButtonContent={<BsIcon.BsFillEyeFill/>}
-                            hideButtonContent={<BsIcon.BsFillEyeSlashFill/>}
+                            showButtonContent={<BsIcon.BsFillEyeFill />}
+                            hideButtonContent={<BsIcon.BsFillEyeSlashFill />}
                             buttonClassName="password-show-button"
                             useVendorStyles={false}
                         />
-                        <Link to="/forgot-password" className="forget-password">Forgot Password?</Link>
+                        <Link to="/forgot-password" className="forget-password">
+                            Forgot Password?
+                        </Link>
                     </div>
 
                     <div className="login-input-container">
-                    <button type="submit" className="login-form-btn">
-                        Login
-                    </button>
-                    <p className="register-link-container">
-                      Don't have an account?
-                      <Link to="/register" className="register-link"> Register now </Link>
-                    </p>
+                        <button type="submit" className="login-form-btn">
+                            Login
+                        </button>
+                        <p className="register-link-container">
+                            Don't have an account?
+                            <Link to="/register" className="register-link">
+                                {" "}
+                                Register now{" "}
+                            </Link>
+                        </p>
                     </div>
                     {Object.keys(errors).length > 0 && (
-                    <div className="login-error-container">
-                        {Object.keys(errors).length > 0 &&
-                            Object.values(errors).map((value) => (
-                                <li key={value}>{value}</li>
-                            ))}
-                    </div>)}
+                        <div className="login-error-container">
+                            {Object.keys(errors).length > 0 &&
+                                Object.values(errors).map((value) => (
+                                    <li key={value}>{value}</li>
+                                ))}
+                        </div>
+                    )}
                 </form>
                 <div className="login-svg">
                     <LoginSvg />

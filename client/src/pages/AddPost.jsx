@@ -1,149 +1,163 @@
-import React, { useState} from 'react'
-import gql from 'graphql-tag'
-import {useMutation, useQuery} from "@apollo/client"
-import {useHistory} from 'react-router-dom'
-import FileBase from 'react-file-base64';
+import React, { useState } from "react";
+import gql from "graphql-tag";
+import { useMutation, useQuery } from "@apollo/client";
+import { useHistory } from "react-router-dom";
+import FileBase from "react-file-base64";
 
-import AddPostSvg from "../assets/AddPostSvg"
-import NoImageSvg from "../assets/NoImageSvg"
-import {useForm} from "../utils/hooks"
-import { Navbar } from '../components'
-import "../styles/pages/addPost.scss"
+import AddPostSvg from "../assets/AddPostSvg";
+import NoImageSvg from "../assets/NoImageSvg";
+import { useForm } from "../utils/hooks";
+import { Navbar } from "../components";
+import "../styles/pages/addPost.scss";
 
 const AddPost = () => {
-    const [errors, setErrors] = useState({})
-    const [postData, setPostData] = useState(null)
+    const [errors, setErrors] = useState({});
+    const [postData, setPostData] = useState(null);
     const history = useHistory();
 
     const { onChange, onSubmit, values } = useForm(createPostCallback, {
         body: "",
     });
 
-    useQuery(FETCH_POSTS_QUERY)
+    useQuery(FETCH_POSTS_QUERY);
 
-      const [createPost] = useMutation(CREATE_POST_MUTATION, {
-        variables: {body: values.body, imagePath: postData?.selectedFile},
+    const [createPost] = useMutation(CREATE_POST_MUTATION, {
+        variables: { body: values.body, imagePath: postData?.selectedFile },
         update(proxy, result) {
-          const data = proxy.readQuery({
-            query: FETCH_POSTS_QUERY,
-          });
-    
-          let newData = [...data.getPosts];
-          newData = [result.data.createPost, ...newData];
-          proxy.writeQuery({
-            query: FETCH_POSTS_QUERY,
-            data: {
-              ...data,
-              getPosts: {
-                newData,
-              },
-            },
-          });
-          values.body = '';
-          history.push("/")
+            const data = proxy.readQuery({
+                query: FETCH_POSTS_QUERY,
+            });
+
+            let newData = [...data.getPosts];
+            newData = [result.data.createPost, ...newData];
+            proxy.writeQuery({
+                query: FETCH_POSTS_QUERY,
+                data: {
+                    ...data,
+                    getPosts: {
+                        newData,
+                    },
+                },
+            });
+            values.body = "";
+            history.push("/");
         },
         onError(err) {
-          setErrors(err.graphQLErrors[0].extensions.errors);
-          let input = document.querySelector(".add-post-caption-input")  
-          input.focus()        
+            setErrors(err.graphQLErrors[0].extensions.errors);
+            let input = document.querySelector(".add-post-caption-input");
+            input.focus();
         },
-      });
-    
-      function createPostCallback() {
+    });
+
+    function createPostCallback() {
         createPost();
-      }
+    }
 
     return (
         <>
-            <Navbar/>
+            <Navbar />
             <div className="add-post-container">
-              
-              <div className="left">
-              <div className="heading">Add post</div>
-                <form onSubmit={onSubmit} className="add-post-form">
-                  <div className="input-wrapper">
-                  <input 
-                        type="text" 
-                        className={errors.body ? "add-post-caption-input error" : "add-post-caption-input" }
-                        name="body"
-                        onChange={onChange}
-                        autoComplete="off"
-                        placeholder="Caption"
-                    />
-                    <label htmlFor="body" className="caption-label">Caption</label>
-                  </div>
-                  <div className="image-input-wrapper">
-                    <div className="post-image-container">
-                      {postData?.selectedFile ? (
-                        <img src={postData?.selectedFile} alt="" />
-                      ) : (
-                        <NoImageSvg/>
-                      )}
-                    </div>
-                    <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({selectedFile: base64 })} />
-                  </div>
-                    <button type="submit" className="post-submit-btn">Submit</button>
-                    {Object.keys(errors).length > 0 && (
-                    <div className="error-container">
-                        {Object.keys(errors).length > 0 &&
-                            Object.values(errors).map((value) => (
-                                <li key={value}>{value}</li>
-                            ))}
-                    </div>)}
-                </form>
-              </div>
-              <div className="svg-container">
-                <AddPostSvg/>
-              </div>
+                <div className="left">
+                    <div className="heading">Add post</div>
+                    <form onSubmit={onSubmit} className="add-post-form">
+                        <div className="input-wrapper">
+                            <input
+                                type="text"
+                                className={
+                                    errors.body
+                                        ? "add-post-caption-input error"
+                                        : "add-post-caption-input"
+                                }
+                                name="body"
+                                onChange={onChange}
+                                autoComplete="off"
+                                placeholder="Caption"
+                            />
+                            <label htmlFor="body" className="caption-label">
+                                Caption
+                            </label>
+                        </div>
+                        <div className="image-input-wrapper">
+                            <div className="post-image-container">
+                                {postData?.selectedFile ? (
+                                    <img src={postData?.selectedFile} alt="" />
+                                ) : (
+                                    <NoImageSvg />
+                                )}
+                            </div>
+                            <FileBase
+                                type="file"
+                                multiple={false}
+                                onDone={({ base64 }) =>
+                                    setPostData({ selectedFile: base64 })
+                                }
+                            />
+                        </div>
+                        <button type="submit" className="post-submit-btn">
+                            Submit
+                        </button>
+                        {Object.keys(errors).length > 0 && (
+                            <div className="error-container">
+                                {Object.keys(errors).length > 0 &&
+                                    Object.values(errors).map((value) => (
+                                        <li key={value}>{value}</li>
+                                    ))}
+                            </div>
+                        )}
+                    </form>
+                </div>
+                <div className="svg-container">
+                    <AddPostSvg />
+                </div>
             </div>
         </>
-    )
-}
+    );
+};
 
 const CREATE_POST_MUTATION = gql`
-  mutation createPost($body: String!, $imagePath: String) {
-    createPost(body: $body imagePath: $imagePath) {
-      id
-      body
-      imagePath
-      createdAt
-      username
-      likes {
-        id
-        username
-        createdAt
-      }
-      comments {
-        id
-        body
-        username
-        createdAt
-      }
+    mutation createPost($body: String!, $imagePath: String) {
+        createPost(body: $body, imagePath: $imagePath) {
+            id
+            body
+            imagePath
+            createdAt
+            username
+            likes {
+                id
+                username
+                createdAt
+            }
+            comments {
+                id
+                body
+                username
+                createdAt
+            }
+        }
     }
-  }
 `;
 
 const FETCH_POSTS_QUERY = gql`
     query {
-        getPosts{
-        id
-        body
-        imagePath
-        username
-        createdAt
-        likes{
+        getPosts {
             id
-            username
-            createdAt
-        }
-        comments{
-            id
-            username
             body
+            imagePath
+            username
             createdAt
+            likes {
+                id
+                username
+                createdAt
+            }
+            comments {
+                id
+                username
+                body
+                createdAt
+            }
         }
     }
-    }
-`
+`;
 
-export default AddPost
+export default AddPost;

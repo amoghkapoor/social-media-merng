@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ToastNotification = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+    return <div></div>;
+};
 
-export default ToastNotification
+export default ToastNotification;

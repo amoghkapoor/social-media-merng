@@ -1,182 +1,182 @@
 @import "../defaults/colors";
 
 .comment-card {
-	padding: 1rem 1.5rem;
-	margin-bottom: 1.5rem;
-	display: flex;
-	flex-direction: column;
-	width: 70%;
-	border: 1px solid #cccccc;
-	border-radius: 1rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    border: 1px solid #cccccc;
+    border-radius: 1rem;
 
-	.comment-user-container {
-		margin-bottom: 1rem;
-		border-bottom: 1px solid rgb(219, 219, 219);
-		font-size: 1.25rem;
-		// padding: 0.75rem 1.5rem;
-		display: flex;
-		align-items: center;
-		position: relative;
-		padding-bottom: 1rem;
+    .comment-user-container {
+        margin-bottom: 1rem;
+        border-bottom: 1px solid rgb(219, 219, 219);
+        font-size: 1.25rem;
+        // padding: 0.75rem 1.5rem;
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding-bottom: 1rem;
 
-		.comment-user-image {
-			font-size: 1.25rem;
-			width: 2rem;
-			height: 2rem;
-			margin-right: 1rem;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			border-radius: 50%;
-			background-color: $light;
+        .comment-user-image {
+            font-size: 1.25rem;
+            width: 2rem;
+            height: 2rem;
+            margin-right: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: $light;
 
-			img {
-				width: 100%;
-				height: 100%;
-				border-radius: 50%;
-				object-fit: contain;
-			}
-		}
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: contain;
+            }
+        }
 
-		.comment-username {
-			font-weight: 500;
-		}
+        .comment-username {
+            font-weight: 500;
+        }
 
-		.menu-btn {
-			background-color: transparent;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			border: none;
-			position: absolute;
-			right: 1.5rem;
-			cursor: pointer;
-		}
+        .menu-btn {
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            position: absolute;
+            right: 1.5rem;
+            cursor: pointer;
+        }
 
-		.delete-menu-button {
-			color: $red;
-		}
-	}
+        .delete-menu-button {
+            color: $red;
+        }
+    }
 
-	.comment-card-content {
-		padding: 1rem;
-		padding-top: 0;
-		display: flex;
-		align-items: flex-start;
-		justify-content: space-between;
+    .comment-card-content {
+        padding: 1rem;
+        padding-top: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
 
-		.comment-body {
-			padding-left: 2rem;
-			font-size: 1rem;
-			margin-right: 3rem;
-			word-break: break-all;
-			word-wrap: break-word;
-		}
+        .comment-body {
+            padding-left: 2rem;
+            font-size: 1rem;
+            margin-right: 3rem;
+            word-break: break-all;
+            word-wrap: break-word;
+        }
 
-		.comment-createdAt {
-			color: #838383;
-			font-size: 0.8rem;
-		}
-	}
+        .comment-createdAt {
+            color: #838383;
+            font-size: 0.8rem;
+        }
+    }
 
-	.edited {
-		width: 100%;
-		padding-right: 0.7rem;
-		text-align: right;
-		color: #838383;
-		font-size: 0.8rem;
-	}
+    .edited {
+        width: 100%;
+        padding-right: 0.7rem;
+        text-align: right;
+        color: #838383;
+        font-size: 0.8rem;
+    }
 }
 
 .comment-update-menu {
-	height: 50vh;
-	position: absolute;
-	bottom: 0;
-	display: flex;
-	justify-content: center;
+    height: 50vh;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
 
-	.comment-update-form {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 1rem;
+    .comment-update-form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
 
-		.input-wrapper {
-			position: relative;
-			width: 70%;
-			margin-bottom: 2rem;
+        .input-wrapper {
+            position: relative;
+            width: 70%;
+            margin-bottom: 2rem;
 
-			.comment-update-input {
-				margin-top: 1.5rem;
-				width: 100%;
-				padding: 0.75rem 1rem;
-				background-color: transparent;
-				border: 2px solid $grey;
-				border-radius: 0.5rem;
-				transition: all 0.3s ease;
-				font-size: 1.25rem;
+            .comment-update-input {
+                margin-top: 1.5rem;
+                width: 100%;
+                padding: 0.75rem 1rem;
+                background-color: transparent;
+                border: 2px solid $grey;
+                border-radius: 0.5rem;
+                transition: all 0.3s ease;
+                font-size: 1.25rem;
 
-				&:hover:not(.error) {
-					border-color: $blue-400;
-				}
+                &:hover:not(.error) {
+                    border-color: $blue-400;
+                }
 
-				&:focus:not(.error) {
-					border-color: $blue;
-				}
-			}
+                &:focus:not(.error) {
+                    border-color: $blue;
+                }
+            }
 
-			@keyframes shake {
-				0% {
-					transform: translateX(0);
-				}
-				25% {
-					transform: translateX(8px);
-				}
-				75% {
-					transform: translateX(-8px);
-				}
-				100% {
-					transform: translateX(0);
-				}
-			}
+            @keyframes shake {
+                0% {
+                    transform: translateX(0);
+                }
+                25% {
+                    transform: translateX(8px);
+                }
+                75% {
+                    transform: translateX(-8px);
+                }
+                100% {
+                    transform: translateX(0);
+                }
+            }
 
-			.error {
-				border-color: $red;
-				animation: shake 0.1635s 0s 3;
-			}
+            .error {
+                border-color: $red;
+                animation: shake 0.1635s 0s 3;
+            }
 
-			.comment-label {
-				display: block;
-				position: absolute;
-				top: 0;
-				color: #5d5d5d;
-				transition: 0.2s ease-in-out transform;
-				font-size: 1rem;
-				pointer-events: none;
-			}
-		}
+            .comment-label {
+                display: block;
+                position: absolute;
+                top: 0;
+                color: #5d5d5d;
+                transition: 0.2s ease-in-out transform;
+                font-size: 1rem;
+                pointer-events: none;
+            }
+        }
 
-		.edit-comment-submit-btn {
-			width: 70%;
-			padding: 0.75rem 1rem;
-			font-size: 1.25rem;
-			background-color: $sky-blue;
-			border-radius: 3rem;
-			border: none;
-			color: #fff;
-			transition: all 0.3s ease-in-out;
-			cursor: pointer;
+        .edit-comment-submit-btn {
+            width: 70%;
+            padding: 0.75rem 1rem;
+            font-size: 1.25rem;
+            background-color: $sky-blue;
+            border-radius: 3rem;
+            border: none;
+            color: #fff;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
 
-			&:hover {
-				background-color: $blue;
-			}
-		}
+            &:hover {
+                background-color: $blue;
+            }
+        }
 
-		.error-container {
-			margin-top: 2rem;
-			color: $red;
-		}
-	}
+        .error-container {
+            margin-top: 2rem;
+            color: $red;
+        }
+    }
 }

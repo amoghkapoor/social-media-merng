@@ -4,11 +4,11 @@ import { AuthProvider } from './context/auth'
 import "./styles/defaults/app.scss"
 
 const App = () => {
-  return (
-    <AuthProvider>
-      <Router />
-    </AuthProvider>
-  )
+    return (
+        <AuthProvider>
+            <Router />
+        </AuthProvider>
+    )
 }
 
 export default App

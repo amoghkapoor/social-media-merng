@@ -1,25 +1,25 @@
 svg#freepik_stories-add-notes:not(.animated) .animable {
-	opacity: 0;
+    opacity: 0;
 }
 svg#freepik_stories-add-notes.animated
-	#freepik--background-complete--inject-10 {
-	animation: 1.5s Infinite linear floating;
-	animation-delay: 0s;
+    #freepik--background-complete--inject-10 {
+    animation: 1.5s Infinite linear floating;
+    animation-delay: 0s;
 }
 svg#freepik_stories-add-notes.animated #freepik--Plants--inject-10 {
-	animation: 1.5s Infinite linear floating;
-	animation-delay: 0s;
+    animation: 1.5s Infinite linear floating;
+    animation-delay: 0s;
 }
 @keyframes floating {
-	0% {
-		opacity: 1;
-		transform: translateY(0px);
-	}
-	50% {
-		transform: translateY(-10px);
-	}
-	100% {
-		opacity: 1;
-		transform: translateY(0px);
-	}
+    0% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
 }

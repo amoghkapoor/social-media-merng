@@ -1,152 +1,154 @@
 @import "../defaults/colors";
 
 .add-post-container {
-	padding: 2rem;
-	padding-left: 4rem;
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
+    padding: 2rem;
+    padding-left: 4rem;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 
-	.left {
-		width: 60%;
-		.heading {
-			font-size: 2.5rem;
-			margin-bottom: 1rem;
-		}
+    .left {
+        width: 60%;
+        .heading {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
 
-		.add-post-form {
-			width: 100%;
-			display: flex;
-			flex-direction: column;
-			position: relative;
+        .add-post-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
 
-			.input-wrapper {
-				position: relative;
-				width: 60%;
-				margin-bottom: 2rem;
+            .input-wrapper {
+                position: relative;
+                width: 60%;
+                margin-bottom: 2rem;
 
-				.add-post-caption-input {
-					margin-top: 1.5rem;
-					width: 100%;
-					padding: 0.75rem 1rem;
-					background-color: transparent;
-					border: 2px solid $grey;
-					border-radius: 0.5rem;
-					transition: all 0.3s ease;
-					font-size: 1.25rem;
+                .add-post-caption-input {
+                    margin-top: 1.5rem;
+                    width: 100%;
+                    padding: 0.75rem 1rem;
+                    background-color: transparent;
+                    border: 2px solid $grey;
+                    border-radius: 0.5rem;
+                    transition: all 0.3s ease;
+                    font-size: 1.25rem;
 
-					&:hover:not(.error) {
-						border-color: $blue-400;
-					}
+                    &:hover:not(.error) {
+                        border-color: $blue-400;
+                    }
 
-					&:focus:not(.error) {
-						border-color: $blue;
-					}
-				}
+                    &:focus:not(.error) {
+                        border-color: $blue;
+                    }
+                }
 
-				@keyframes shake {
-					0% {
-						transform: translateX(0);
-					}
-					25% {
-						transform: translateX(8px);
-					}
-					75% {
-						transform: translateX(-8px);
-					}
-					100% {
-						transform: translateX(0);
-					}
-				}
+                @keyframes shake {
+                    0% {
+                        transform: translateX(0);
+                    }
+                    25% {
+                        transform: translateX(8px);
+                    }
+                    75% {
+                        transform: translateX(-8px);
+                    }
+                    100% {
+                        transform: translateX(0);
+                    }
+                }
 
-				.error {
-					border-color: $red;
-					animation: shake 0.1635s 0s 3;
-				}
+                .error {
+                    border-color: $red;
+                    animation: shake 0.1635s 0s 3;
+                }
 
-				.caption-label {
-					display: block;
-					position: absolute;
-					opacity: 0;
-					top: 0.5rem;
-					color: #5d5d5d;
-					transition: 0.2s ease-in-out transform;
-					font-size: 1rem;
-					pointer-events: none;
-				}
+                .caption-label {
+                    display: block;
+                    position: absolute;
+                    opacity: 0;
+                    top: 0.5rem;
+                    color: #5d5d5d;
+                    transition: 0.2s ease-in-out transform;
+                    font-size: 1rem;
+                    pointer-events: none;
+                }
 
-				.add-post-caption-input:placeholder-shown + .caption-label {
-					visibility: hidden;
-					z-index: -1;
-					transition: 0.2s ease-in-out;
-				}
-				.add-post-caption-input:not(:placeholder-shown) + .caption-label,
-				.add-post-caption-input:focus:not(:placeholder-shown) + .caption-label {
-					visibility: visible;
-					z-index: 1;
-					opacity: 1;
-					transform: translateY(-10px);
-					transition: 0.2s ease-in-out transform;
-				}
-			}
+                .add-post-caption-input:placeholder-shown + .caption-label {
+                    visibility: hidden;
+                    z-index: -1;
+                    transition: 0.2s ease-in-out;
+                }
+                .add-post-caption-input:not(:placeholder-shown)
+                    + .caption-label,
+                .add-post-caption-input:focus:not(:placeholder-shown)
+                    + .caption-label {
+                    visibility: visible;
+                    z-index: 1;
+                    opacity: 1;
+                    transform: translateY(-10px);
+                    transition: 0.2s ease-in-out transform;
+                }
+            }
 
-			.error-container {
-				position: absolute;
-				right: 2rem;
-				top: 0;
-				margin-top: 2rem;
-				color: $red;
-			}
+            .error-container {
+                position: absolute;
+                right: 2rem;
+                top: 0;
+                margin-top: 2rem;
+                color: $red;
+            }
 
-			.post-submit-btn {
-				width: 60%;
-				margin-top: 1rem;
-				padding: 0.75rem 1rem;
-				font-size: 1.25rem;
-				background-color: $sky-blue;
-				border-radius: 3rem;
-				border: none;
-				color: #fff;
-				transition: all 0.3s ease-in-out;
-				cursor: pointer;
+            .post-submit-btn {
+                width: 60%;
+                margin-top: 1rem;
+                padding: 0.75rem 1rem;
+                font-size: 1.25rem;
+                background-color: $sky-blue;
+                border-radius: 3rem;
+                border: none;
+                color: #fff;
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
 
-				&:hover {
-					background-color: $blue;
-				}
-			}
+                &:hover {
+                    background-color: $blue;
+                }
+            }
 
-			.post-image-container {
-				border: 2px solid $grey;
-				width: 60%;
-				height: 25rem;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				margin-bottom: 1rem;
-				border-radius: 0.5rem;
-				background-color: $light;
+            .post-image-container {
+                border: 2px solid $grey;
+                width: 60%;
+                height: 25rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 1rem;
+                border-radius: 0.5rem;
+                background-color: $light;
 
-				img {
-					width: 100%;
-					height: 100%;
-					object-fit: contain;
-				}
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
 
-				svg {
-					width: 100%;
-					height: 100%;
-				}
-			}
-		}
-	}
+                svg {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
 
-	.svg-container {
-		height: 100%;
-		width: 40%;
+    .svg-container {
+        height: 100%;
+        width: 40%;
 
-		svg {
-			width: 100%;
-			height: 100%;
-		}
-	}
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
 }

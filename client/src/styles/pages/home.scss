@@ -1,52 +1,52 @@
 @import "../defaults/colors";
 
 .home-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-	.home-heading {
-		font-size: 2rem;
-		font-weight: 600;
-		margin-top: 2rem;
-	}
+    .home-heading {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-top: 2rem;
+    }
 }
 
 .posts-grid {
-	margin: 3rem auto;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	height: 100%;
-	width: 90%;
+    margin: 3rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 90%;
 
-	@media only screen and (min-width: 768px) {
-		width: 55%;
-	}
+    @media only screen and (min-width: 768px) {
+        width: 55%;
+    }
 }
 
 .react-scrolltop-button {
-	background-color: #fff;
-	padding: 0.75rem !important;
-	border-color: $sky-blue !important;
-	right: 2% !important;
-	bottom: 3% !important;
+    background-color: #fff;
+    padding: 0.75rem !important;
+    border-color: $sky-blue !important;
+    right: 2% !important;
+    bottom: 3% !important;
 
-	&:hover {
-		background-color: $sky-blue !important;
+    &:hover {
+        background-color: $sky-blue !important;
 
-		svg {
-			fill: #fff;
-		}
-	}
+        svg {
+            fill: #fff;
+        }
+    }
 
-	svg {
-		transform: scale(1.2);
-		fill: $sky-blue;
-	}
+    svg {
+        transform: scale(1.2);
+        fill: $sky-blue;
+    }
 }
 
 .loader-container {
-	z-index: 100;
+    z-index: 100;
 }

@@ -1,161 +1,161 @@
 @import "../defaults/colors";
 
 .edit-post-container {
-	padding: 2rem;
-	padding-left: 4rem;
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
+    padding: 2rem;
+    padding-left: 4rem;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 
-	.left {
-		width: 60%;
-		.heading {
-			font-size: 2.5rem;
-			margin-bottom: 2rem;
-		}
+    .left {
+        width: 60%;
+        .heading {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
 
-		.edit-post-form {
-			width: 100%;
-			display: flex;
-			flex-direction: column;
-			position: relative;
+        .edit-post-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
 
-			.input-wrapper {
-				position: relative;
-				width: 60%;
-				margin-bottom: 1rem;
+            .input-wrapper {
+                position: relative;
+                width: 60%;
+                margin-bottom: 1rem;
 
-				.edit-post-caption-input {
-					margin-top: 1.5rem;
-					width: 100%;
-					padding: 0.75rem 1rem;
-					background-color: transparent;
-					border: 2px solid $grey;
-					border-radius: 0.5rem;
-					transition: all 0.3s ease;
-					font-size: 1.25rem;
+                .edit-post-caption-input {
+                    margin-top: 1.5rem;
+                    width: 100%;
+                    padding: 0.75rem 1rem;
+                    background-color: transparent;
+                    border: 2px solid $grey;
+                    border-radius: 0.5rem;
+                    transition: all 0.3s ease;
+                    font-size: 1.25rem;
 
-					&:hover:not(.error) {
-						border-color: $blue-400;
-					}
+                    &:hover:not(.error) {
+                        border-color: $blue-400;
+                    }
 
-					&:focus:not(.error) {
-						border-color: $blue;
-					}
-				}
+                    &:focus:not(.error) {
+                        border-color: $blue;
+                    }
+                }
 
-				@keyframes shake {
-					0% {
-						transform: translateX(0);
-					}
-					25% {
-						transform: translateX(8px);
-					}
-					75% {
-						transform: translateX(-8px);
-					}
-					100% {
-						transform: translateX(0);
-					}
-				}
+                @keyframes shake {
+                    0% {
+                        transform: translateX(0);
+                    }
+                    25% {
+                        transform: translateX(8px);
+                    }
+                    75% {
+                        transform: translateX(-8px);
+                    }
+                    100% {
+                        transform: translateX(0);
+                    }
+                }
 
-				.error {
-					border-color: $red;
-					animation: shake 0.1635s 0s 3;
-				}
+                .error {
+                    border-color: $red;
+                    animation: shake 0.1635s 0s 3;
+                }
 
-				.body-label {
-					display: block;
-					position: absolute;
-					top: 0;
-					color: #5d5d5d;
-					transition: 0.2s ease-in-out transform;
-					font-size: 1rem;
-					pointer-events: none;
-				}
-			}
+                .body-label {
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    color: #5d5d5d;
+                    transition: 0.2s ease-in-out transform;
+                    font-size: 1rem;
+                    pointer-events: none;
+                }
+            }
 
-			.edit-post-submit-btn {
-				width: 60%;
-				padding: 0.75rem 1rem;
-				font-size: 1.25rem;
-				background-color: $sky-blue;
-				border-radius: 3rem;
-				border: none;
-				color: #fff;
-				transition: all 0.3s ease-in-out;
-				cursor: pointer;
+            .edit-post-submit-btn {
+                width: 60%;
+                padding: 0.75rem 1rem;
+                font-size: 1.25rem;
+                background-color: $sky-blue;
+                border-radius: 3rem;
+                border: none;
+                color: #fff;
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
 
-				&:hover {
-					background-color: $blue;
-				}
-			}
+                &:hover {
+                    background-color: $blue;
+                }
+            }
 
-			.image-input-wrapper {
-				margin-bottom: 1rem;
+            .image-input-wrapper {
+                margin-bottom: 1rem;
 
-				.post-image-container {
-					border: 2px solid $grey;
-					width: 60%;
-					height: 25rem;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					margin-bottom: 1rem;
-					border-radius: 0.5rem;
-					background-color: $light;
+                .post-image-container {
+                    border: 2px solid $grey;
+                    width: 60%;
+                    height: 25rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 1rem;
+                    border-radius: 0.5rem;
+                    background-color: $light;
 
-					img {
-						width: 100%;
-						height: 100%;
-						object-fit: contain;
-					}
-				}
-			}
-		}
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                    }
+                }
+            }
+        }
 
-		.error-container {
-			position: absolute;
-			right: 2rem;
-			top: 0;
-			margin-top: 3rem;
-			color: $red;
-		}
-	}
+        .error-container {
+            position: absolute;
+            right: 2rem;
+            top: 0;
+            margin-top: 3rem;
+            color: $red;
+        }
+    }
 
-	.svg-container {
-		width: 60%;
-		height: 70vh;
+    .svg-container {
+        width: 60%;
+        height: 70vh;
 
-		svg {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
-	}
+        svg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
 }
 
 .access-denied {
-	position: relative;
-	width: 100vw;
-	height: 80vh;
+    position: relative;
+    width: 100vw;
+    height: 80vh;
 
-	.error-message {
-		position: absolute;
-		top: 50%;
-		right: 3%;
-		font-size: 2rem;
-	}
+    .error-message {
+        position: absolute;
+        top: 50%;
+        right: 3%;
+        font-size: 2rem;
+    }
 
-	.svg-container {
-		width: 80%;
-		height: 100%;
-		z-index: -1;
+    .svg-container {
+        width: 80%;
+        height: 100%;
+        z-index: -1;
 
-		svg {
-			width: 100%;
-			height: 100%;
-			z-index: -1;
-		}
-	}
+        svg {
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    }
 }

@@ -1,164 +1,164 @@
 @import "../defaults/colors";
 
 .login-form-container {
-	width: 100vw;
-	height: 100vh;
-	display: grid;
-	grid-template-columns: 0.8fr 1fr;
-	place-items: center;
-	position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 0.8fr 1fr;
+    place-items: center;
+    position: relative;
 
-	.login-form {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		padding: 3rem 8rem;
-		flex-direction: column;
-		justify-content: space-evenly;
+    .login-form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        padding: 3rem 8rem;
+        flex-direction: column;
+        justify-content: space-evenly;
 
-		&-title {
-			font-size: 2.5rem;
-			font-weight: 600;
-		}
+        &-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
 
-		.login-input-container {
-			position: relative;
-			display: flex;
-			flex-direction: column;
-			width: 90%;
-			font-size: 1.25rem;
+        .login-input-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            font-size: 1.25rem;
 
-			.login-form-label {
-				margin-bottom: 0.75rem;
-			}
+            .login-form-label {
+                margin-bottom: 0.75rem;
+            }
 
-			.login-input {
-				padding: 0.75rem 1rem;
-				border-radius: 3rem;
-				outline: none;
-				border: 1px solid #ced0d3;
-				transition: all 0.3s ease;
-				position: relative;
-				margin: 0 !important;
-				width: 100%;
+            .login-input {
+                padding: 0.75rem 1rem;
+                border-radius: 3rem;
+                outline: none;
+                border: 1px solid #ced0d3;
+                transition: all 0.3s ease;
+                position: relative;
+                margin: 0 !important;
+                width: 100%;
 
-				&:hover:not(.error) {
-					border-color: $blue-400;
-				}
+                &:hover:not(.error) {
+                    border-color: $blue-400;
+                }
 
-				&:focus:not(.error) {
-					border-color: $sky-blue;
-				}
-			}
+                &:focus:not(.error) {
+                    border-color: $sky-blue;
+                }
+            }
 
-			.password-show-button {
-				background-color: transparent;
-				position: absolute;
-				top: 43%;
-				right: 6px;
-				padding: 4px 10px;
-				color: $sky-blue;
-				text-align: center;
-				text-decoration: none;
-				cursor: pointer;
-				margin: 0 !important;
-			}
+            .password-show-button {
+                background-color: transparent;
+                position: absolute;
+                top: 43%;
+                right: 6px;
+                padding: 4px 10px;
+                color: $sky-blue;
+                text-align: center;
+                text-decoration: none;
+                cursor: pointer;
+                margin: 0 !important;
+            }
 
-			@keyframes shake {
-				0% {
-					transform: translateX(0);
-				}
-				25% {
-					transform: translateX(8px);
-				}
-				75% {
-					transform: translateX(-8px);
-				}
-				100% {
-					transform: translateX(0);
-				}
-			}
+            @keyframes shake {
+                0% {
+                    transform: translateX(0);
+                }
+                25% {
+                    transform: translateX(8px);
+                }
+                75% {
+                    transform: translateX(-8px);
+                }
+                100% {
+                    transform: translateX(0);
+                }
+            }
 
-			.error {
-				border-color: $red;
-				animation: shake 0.1635s 0s 3;
-			}
+            .error {
+                border-color: $red;
+                animation: shake 0.1635s 0s 3;
+            }
 
-			.forget-password {
-				margin-top: 0.5rem;
-				font-size: 0.8rem;
-				text-align: right;
-				color: $sky-blue;
-				cursor: pointer;
-			}
-		}
+            .forget-password {
+                margin-top: 0.5rem;
+                font-size: 0.8rem;
+                text-align: right;
+                color: $sky-blue;
+                cursor: pointer;
+            }
+        }
 
-		&-btn {
-			font-size: 1.25rem;
-			padding: 0.75rem 1rem;
-			border-radius: 3rem;
-			outline: none;
-			background-color: $sky-blue;
-			color: #fff;
-			border: none;
-			cursor: pointer;
-		}
+        &-btn {
+            font-size: 1.25rem;
+            padding: 0.75rem 1rem;
+            border-radius: 3rem;
+            outline: none;
+            background-color: $sky-blue;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
 
-		.login-error-container {
-			position: absolute;
-			bottom: 2rem;
-			padding: 1.5rem 3rem;
-			padding-left: 0.55rem;
-			color: rgb(233, 79, 79);
-			pointer-events: none;
+        .login-error-container {
+            position: absolute;
+            bottom: 2rem;
+            padding: 1.5rem 3rem;
+            padding-left: 0.55rem;
+            color: rgb(233, 79, 79);
+            pointer-events: none;
 
-			li {
-				list-style-type: decimal;
-				margin-bottom: 0.25rem;
-			}
-		}
+            li {
+                list-style-type: decimal;
+                margin-bottom: 0.25rem;
+            }
+        }
 
-		.register-link-container {
-			margin-top: 0.5rem;
-			font-size: 1rem;
+        .register-link-container {
+            margin-top: 0.5rem;
+            font-size: 1rem;
 
-			.register-link {
-				color: $sky-blue;
-			}
-		}
-	}
+            .register-link {
+                color: $sky-blue;
+            }
+        }
+    }
 
-	.login-svg {
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-		font-size: 0.5rem;
+    .login-svg {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-size: 0.5rem;
 
-		svg {
-			width: 100%;
-			height: 100%;
-		}
-	}
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
 }
 
 .progress-bar {
-	position: absolute;
-	width: 100%;
-	top: 0;
+    position: absolute;
+    width: 100%;
+    top: 0;
 }
 
 .loader-container {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
-	background-color: rgba(0, 0, 0, 0.85);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
 }
