@@ -22,10 +22,20 @@
 		.comment-user-image {
 			font-size: 1.25rem;
 			width: 2rem;
+			height: 2rem;
 			margin-right: 1rem;
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			border-radius: 50%;
+			background-color: $light;
+
+			img {
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+				object-fit: contain;
+			}
 		}
 
 		.comment-username {

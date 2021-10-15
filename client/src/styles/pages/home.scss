@@ -22,7 +22,7 @@
 	width: 90%;
 
 	@media only screen and (min-width: 768px) {
-		width: 60%;
+		width: 55%;
 	}
 }
 
@@ -30,7 +30,8 @@
 	background-color: #fff;
 	padding: 0.75rem !important;
 	border-color: $sky-blue !important;
-	right: 3% !important;
+	right: 2% !important;
+	bottom: 3% !important;
 
 	&:hover {
 		background-color: $sky-blue !important;
@@ -44,4 +45,8 @@
 		transform: scale(1.2);
 		fill: $sky-blue;
 	}
+}
+
+.loader-container {
+	z-index: 100;
 }

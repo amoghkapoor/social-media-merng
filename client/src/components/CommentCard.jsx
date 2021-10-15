@@ -24,7 +24,7 @@ const CommentCard = ({comment: {username, body, createdAt, edited, id}, postId})
     const [errors, setErrors] = useState()
     const [commentBody, setCommentBody] = useState("")
 
-    const {data: cahedata} = useQuery(FETCH_POSTS_QUERY)
+    useQuery(FETCH_POSTS_QUERY)
 
     const {loading, data} = useQuery(USER_QUERY, {
         variables: {username}

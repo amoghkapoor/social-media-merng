@@ -11,6 +11,8 @@ import { AuthContext } from '../context/auth'
 import "../styles/components/navbar.scss"
 
 const Navbar = () => {
+    const {user: {username}, logout} = useContext(AuthContext)
+
     const location = useLocation()
     let pathname = location.pathname
     
@@ -29,7 +31,7 @@ const Navbar = () => {
                     add: false,
                 })
             }
-            else if(pathname.includes("/profile")){
+            else if(pathname === `/profile/${username}`){
                 setFill({
                     home: false,
                     user: true,
@@ -53,7 +55,6 @@ const Navbar = () => {
 
     }, [pathname])
     
-    const {user: {username}, logout} = useContext(AuthContext)
     const link = `/profile/${username}`
 
     return (

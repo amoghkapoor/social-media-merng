@@ -16,16 +16,17 @@
 
 		.user-image-container {
 			width: 200px;
-			height: 100%;
+			height: 200px;
 			border-radius: 50%;
 			background-color: $light;
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			cursor: pointer;
 
 			.user-image {
-				width: 95%;
-				height: 95%;
+				width: 100%;
+				height: 100%;
 				border-radius: 50%;
 				object-fit: cover;
 			}
@@ -101,10 +102,26 @@
 
 		.user-posts-grid {
 			height: 100%;
-			width: 90%;
+			width: 100%;
 			display: grid;
 			gap: 2rem;
 			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.user-no-posts {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: space-evenly;
+
+		.no-posts-heading {
+			font-size: 2rem;
+		}
+
+		svg {
+			width: 30%;
+			height: 100%;
 		}
 	}
 }
