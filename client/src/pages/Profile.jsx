@@ -1,15 +1,17 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import {useQuery} from "@apollo/client"
 import gql from 'graphql-tag'
-import { Navbar, PostCard } from '../components'
+import { Navbar, PostCard, UserImageModal } from '../components'
 import {Link, useParams} from "react-router-dom"
 import { AuthContext } from "../context/auth";
 import moment from "moment"
 import * as BsIcon from "react-icons/bs"
 
+import NoPostSvg from "../assets/NoPostSvg"
 import "../styles/pages/profile.scss"
 
 const Profile = () => {
+    const [show, setShow] = useState(false)
     const {user: {username}} = useContext(AuthContext)
     const {id} = useParams()
 
@@ -33,10 +35,10 @@ const Profile = () => {
     return (
         <>
             <Navbar/>
-            {userData && (
+            {userData ? (
                 <div className="profile-outer-container">
                     <div className="user-container">
-                        <div className="user-image-container">
+                        <div className="user-image-container" onClick={() => setShow(true)} >
                             <img src={userData.avatarUrl} alt={userData.name} className="user-image" />
                         </div>
                         <div className="user-info">
@@ -55,18 +57,35 @@ const Profile = () => {
                         </div>
                     </div>
                     <div className="user-posts">
+                        {userPostsData?.length !== 0 && (
                         <div className="user-posts-heading">
                         <BsIcon.BsGrid3X3/>
                         <span>Posts</span>
-                        </div>
+                        </div> )}
                         {!postsLoading && (
+                            <>
+                            {userPostsData.length === 0 
+                                ? (<div className='user-no-posts'>
+                                    <div className="no-posts-heading">
+                                    No posts </div>
+                                    <NoPostSvg/>
+                                </div>) : (
                             <div className="user-posts-grid">
-                            {userPostsData.map((post => (
-                                <PostCard post={post} key={post.id}/>
-                            )))}
+                                {userPostsData.map((post => (
+                                    <Link to={`/post/${post.id}`}key={post.id}>
+                                        <PostCard post={post} />
+                                    </Link>
+                                )))}
                             </div>
+                            )}
+                           </> 
                         )}
                     </div>
+                    <UserImageModal onClose={() => setShow(false)} show={show} content={userData.avatarUrl}/>
+                </div>
+            ) : (
+                <div>
+                    no user
                 </div>
             )}
         </>
@@ -99,6 +118,7 @@ const GET_POSTS = gql`
         body
         username
         createdAt
+        imagePath
         likes{
             id
             username

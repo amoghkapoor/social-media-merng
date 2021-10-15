@@ -1,0 +1,91 @@
+@import "../defaults/colors";
+
+.overlay {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 100;
+}
+
+.modal {
+	width: 30rem;
+	height: 30rem;
+	background-color: #fff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.5);
+	z-index: 110;
+	border-radius: 1rem;
+	display: flex;
+	transition: all 0.3s;
+	opacity: 0;
+	visibility: hidden;
+	overflow: hidden;
+
+	&-content {
+		width: 100%;
+		overflow-y: scroll;
+		padding: 3.5rem;
+
+		.modal-header {
+			font-size: 1.5rem;
+			margin-bottom: 2rem;
+		}
+
+		.modal-body {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+	}
+
+	::-webkit-scrollbar {
+		scrollbar-width: thin;
+	}
+
+	.modal-close-btn {
+		position: absolute;
+		left: 1.5rem;
+		top: 1.5rem;
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		font-size: 1.5rem;
+	}
+}
+
+.modal.visible {
+	transform: translate(-50%, -50%) scale(1);
+	opacity: 1;
+	visibility: visible;
+}
+
+.modal-user {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 1rem;
+
+	.modal-user-image-container {
+		width: 3rem;
+		height: 3rem;
+		margin-right: 1rem;
+		border-radius: 50%;
+		background-color: $light;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.modal-user-image {
+		border-radius: 50%;
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+}

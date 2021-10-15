@@ -24,10 +24,19 @@
 		.post-user-image {
 			font-size: 1.25rem;
 			width: 2rem;
+			height: 2rem;
 			margin-right: 1rem;
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			border-radius: 50%;
+
+			img {
+				object-fit: contain;
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+			}
 		}
 
 		.post-username {
@@ -52,14 +61,39 @@
 
 	.post-card-content {
 		padding: 1rem;
-		padding-top: 0;
+		padding-top: 0.5rem;
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		align-items: flex-start;
+		justify-content: center;
 
 		.post-body {
-			padding-left: 2rem;
+			width: 100%;
 			font-size: 1rem;
+
+			.post-image {
+				width: 100%;
+				height: 30rem;
+				margin-bottom: 1rem;
+
+				img,
+				video {
+					width: 100%;
+					height: 100%;
+					object-fit: contain;
+				}
+			}
+
+			.divider {
+				width: 100%;
+				height: 1px;
+				background-color: #cecece;
+				margin-bottom: 1rem;
+			}
+
+			.post-caption {
+				width: 100%;
+				padding-left: 2rem;
+			}
 		}
 
 		.post-createdAt {
@@ -74,6 +108,8 @@
 		padding-right: 0.5rem;
 		color: #838383;
 		font-size: 0.8rem;
+		display: flex;
+		justify-content: flex-end;
 	}
 
 	.post-actions {
@@ -297,4 +333,49 @@
 
 .react-confirm-alert-overlay {
 	transition-duration: 0.2s;
+}
+
+.hover {
+	position: relative;
+	cursor: pointer;
+
+	.post-actions-hover {
+		background-color: rgba(0, 0, 0, 0.5);
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		opacity: 0;
+		transition: all 0.3s ease-in;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: #fff;
+		font-size: 1.5rem;
+
+		.like,
+		.comment {
+			display: flex;
+			align-items: center;
+
+			span {
+				margin-right: 0.5rem;
+			}
+		}
+
+		.like {
+			margin-right: 1rem;
+		}
+
+		.comment {
+			margin-left: 1rem;
+		}
+	}
+
+	&:hover {
+		.post-actions-hover {
+			opacity: 1;
+		}
+	}
 }

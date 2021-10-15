@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react'
 import {useQuery, useMutation} from "@apollo/client"
 import gql from 'graphql-tag'
-import { LikeButton, Navbar } from '../components'
 import {Link, useParams, useHistory} from "react-router-dom"
 import { AuthContext } from "../context/auth";
 import moment from "moment"
@@ -15,6 +14,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import NoCommentImage from "../assets/no-comments.png"
 import {CommentCard} from "../components"
 import "../styles/pages/singlePost.scss"
+import { LikeButton, Navbar, Modal } from '../components'
 
 const SinglePost = () => {
     const {user: {username}} = useContext(AuthContext)
@@ -22,6 +22,7 @@ const SinglePost = () => {
     const history = useHistory();
 
     const [comment, setComment] = useState("")
+    const [show, setShow] = useState(false)
 
     const {loading, data} = useQuery(GET_POST, {
         variables: {postId: id}
@@ -122,8 +123,6 @@ const SinglePost = () => {
         }
     }
 
-    
-
     return (
         <>
             <Navbar/>
@@ -161,15 +160,16 @@ const SinglePost = () => {
 
                             <div className="likes-and-comment">
                                 <div className="likes">
-                                    <div className="left">Likes: </div>
+                                    <div className="left" onClick={() => setShow(true)}>Likes: </div>
 
                                     <div className="right">
                                     <span className="count">{post?.likes.length}</span>
                                     <IconContext.Provider value={{color: "#f44336"}}>
-                                    <BsIcon.BsHeartFill/>
+                                        <BsIcon.BsHeartFill onClick={() => setShow(true)} className="icon"/>
                                     </IconContext.Provider> 
                                     </div>
                                 </div>
+                                <Modal onClose={() => setShow(false)} show={show} content={post?.likes}/>
 
                                 <div className="comments">
                                     <div className="left">Comments: </div>
@@ -207,8 +207,8 @@ const SinglePost = () => {
                         <div className="post-content">
                             <div className="post-body">
 
-                                {post?.image && (
-                                    <div className="img" />
+                                {post?.imagePath && (
+                                    <img src={post?.imagePath} alt="Post" className="img"/>
                                 )}
 
                                 <div className="post-body-caption">
@@ -287,6 +287,7 @@ const GET_POST = gql`
         getPost(postId: $postId){
         id
         body
+        imagePath
         username
         createdAt
         edited
@@ -317,6 +318,7 @@ const FETCH_POSTS_QUERY = gql`
         getPosts{
         id
         body
+        imagePath
         username
         createdAt
         likes{
