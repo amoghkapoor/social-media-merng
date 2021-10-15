@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Home, Login, Register, ForgotPassword, Profile, AddPost, SinglePost, EditAccount, EditPost, Error404 } from "./pages"
+import { Home, Login, Register, ForgotPassword, Profile, AddPost, SinglePost, EditAccount, EditPost, Error404, ResetPassword } from "./pages"
 import AuthRoute from "./utils/authRoute"
 import PrivateRoute from "./utils/privateRoute"
 
@@ -16,6 +16,7 @@ const MyRouter = () => {
                 <AuthRoute exact path="/" component={Login} />
                 <AuthRoute path="/register" component={Register} />
                 <AuthRoute path="/forgot-password" component={ForgotPassword} />
+                <AuthRoute path="/passwordReset" component={ResetPassword} />
                 <Route component={Error404} />
             </Switch >
         </Router>

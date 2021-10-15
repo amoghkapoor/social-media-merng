@@ -4,6 +4,7 @@ const typeDefs = gql`
     type Post{
         id: ID!
         body: String!
+        imagePath: String
         createdAt: String!
         username: String!
         comments: [Comment]!
@@ -34,7 +35,9 @@ const typeDefs = gql`
     input UpdateInput{
         id: ID!
         username: String!
+        name: String!
         email: String!
+        avatarUrl: String!
     }
     input UpdatePasswordInput{
         id: ID!
@@ -54,15 +57,17 @@ const typeDefs = gql`
         getPost(postId: ID!): Post
         getPostsByUsername(username: String): [Post]
         getUser(username: String!): User
+        requestPasswordReset(email: String!): String
     }
     type Mutation{
         register(registerInput: RegisterInput): User!
         login(username: String!, password: String!): User!
         updateUser(updateInput: UpdateInput): User!
         updatePassword(updatePasswordInput: UpdatePasswordInput): User!
-        createPost(body: String!): Post! 
+        createPost(body: String!, imagePath: String): Post! 
         deletePost(postId: ID!): String!
-        editPost(postId: ID!, body: String!): Post!
+        editPost(postId: ID!, body: String!, imagePath: String): Post!
+        resetPassword(password: String!, confirmPassword: String!, token: String!, id: ID!): String!
         createComment(body: String! postId: ID!): Post!
         deleteComment(postId: ID! commentId: ID!): Post!
         likePost(postId: ID!): Post!
