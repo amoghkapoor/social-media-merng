@@ -86,3 +86,28 @@ module.exports.validatePassword = (password, confirmPassword) => {
         valid: Object.keys(errors).length < 1
     }
 }
+
+module.exports.validatePost = (body, imagePath) => {
+    const errors = {}
+
+    if (body.trim() === "") {
+        errors.body = "Body must not be empty"
+    }
+
+    if (imagePath) {
+        var index = imagePath.indexOf("/")
+        var index2 = imagePath.indexOf(";")
+        var fileExt = imagePath.slice((index + 1), index2).trim()
+
+        if (fileExt !== "jpg" && fileExt !== "jpeg" && fileExt !== "png") {
+            errors.image = "File must be an image"
+        }
+    }
+
+    return {
+        errors,
+        valid: Object.keys(errors).length < 1
+    }
+}
+
+// && fileExt !== "mp4" && fileExt !== "mov" && fileExt !== "ogg"

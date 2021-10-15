@@ -3,6 +3,8 @@ const { AuthenticationError, UserInputError } = require("apollo-server")
 const Post = require("../../models/Post")
 const checkAuth = require("../../utils/checkAuth")
 
+const { validatePost } = require("../../utils/validators")
+
 module.exports = {
     Query: {
         async getPost(_, { postId }) {
@@ -39,15 +41,18 @@ module.exports = {
         }
     },
     Mutation: {
-        async createPost(_, { body }, context) {
+        async createPost(_, { body, imagePath }, context) {
             const user = checkAuth(context)
 
-            if (body.trim() === "") {
-                throw new Error("Body must not be empty")
+            const { errors, valid } = validatePost(body, imagePath)
+
+            if (!valid) {
+                throw new UserInputError('Errors', { errors });
             }
 
             const newPost = new Post({
                 body,
+                imagePath,
                 user: user.id,
                 username: user.username,
                 createdAt: new Date().toISOString(),
@@ -99,11 +104,13 @@ module.exports = {
                 throw new UserInputError("Post not found")
             }
         },
-        async editPost(_, { postId, body }, context) {
+        async editPost(_, { postId, body, imagePath }, context) {
             const { username } = checkAuth(context)
 
-            if (body.trim() === "") {
-                throw new Error("Body must not be empty")
+            const { errors, valid } = validatePost(body, imagePath)
+
+            if (!valid) {
+                throw new UserInputError('Errors', { errors });
             }
 
             const post = await Post.findById(postId)
@@ -111,7 +118,7 @@ module.exports = {
             if (post) {
                 if (post.username === username) {
 
-                    const updatedPost = await Post.findByIdAndUpdate(postId, { body, edited: true }, { new: true })
+                    const updatedPost = await Post.findByIdAndUpdate(postId, { body, imagePath, edited: true }, { new: true })
 
                     return updatedPost
                 }
