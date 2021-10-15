@@ -2,24 +2,27 @@ import React, { useState} from 'react'
 import gql from 'graphql-tag'
 import {useMutation, useQuery} from "@apollo/client"
 import {useHistory} from 'react-router-dom'
+import FileBase from 'react-file-base64';
 
 import AddPostSvg from "../assets/AddPostSvg"
+import NoImageSvg from "../assets/NoImageSvg"
 import {useForm} from "../utils/hooks"
 import { Navbar } from '../components'
 import "../styles/pages/addPost.scss"
 
 const AddPost = () => {
-    const [errors, setErrors] = useState(null)
+    const [errors, setErrors] = useState({})
+    const [postData, setPostData] = useState(null)
     const history = useHistory();
 
     const { onChange, onSubmit, values } = useForm(createPostCallback, {
-        body: ""
+        body: "",
     });
 
-    const { data} = useQuery(FETCH_POSTS_QUERY)
+    useQuery(FETCH_POSTS_QUERY)
 
-      const [createPost, ] = useMutation(CREATE_POST_MUTATION, {
-        variables: values,
+      const [createPost] = useMutation(CREATE_POST_MUTATION, {
+        variables: {body: values.body, imagePath: postData?.selectedFile},
         update(proxy, result) {
           const data = proxy.readQuery({
             query: FETCH_POSTS_QUERY,
@@ -40,7 +43,7 @@ const AddPost = () => {
           history.push("/")
         },
         onError(err) {
-          setErrors(err.graphQLErrors[0].message);
+          setErrors(err.graphQLErrors[0].extensions.errors);
           let input = document.querySelector(".add-post-caption-input")  
           input.focus()        
         },
@@ -61,7 +64,7 @@ const AddPost = () => {
                   <div className="input-wrapper">
                   <input 
                         type="text" 
-                        className={errors ? "add-post-caption-input error" : "add-post-caption-input" }
+                        className={errors.body ? "add-post-caption-input error" : "add-post-caption-input" }
                         name="body"
                         onChange={onChange}
                         autoComplete="off"
@@ -69,28 +72,40 @@ const AddPost = () => {
                     />
                     <label htmlFor="body" className="caption-label">Caption</label>
                   </div>
-                    <button type="submit" className="post-submit-btn">Submit</button>
-                </form>
-                {errors && (
-                  <div className="error-container">
-                    1.  {errors}
+                  <div className="image-input-wrapper">
+                    <div className="post-image-container">
+                      {postData?.selectedFile ? (
+                        <img src={postData?.selectedFile} alt="" />
+                      ) : (
+                        <NoImageSvg/>
+                      )}
+                    </div>
+                    <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({selectedFile: base64 })} />
                   </div>
-                )}
+                    <button type="submit" className="post-submit-btn">Submit</button>
+                    {Object.keys(errors).length > 0 && (
+                    <div className="error-container">
+                        {Object.keys(errors).length > 0 &&
+                            Object.values(errors).map((value) => (
+                                <li key={value}>{value}</li>
+                            ))}
+                    </div>)}
+                </form>
               </div>
-
-                <div className="svg-container">
+              <div className="svg-container">
                 <AddPostSvg/>
-                </div>
+              </div>
             </div>
         </>
     )
 }
 
 const CREATE_POST_MUTATION = gql`
-  mutation createPost($body: String!) {
-    createPost(body: $body) {
+  mutation createPost($body: String!, $imagePath: String) {
+    createPost(body: $body imagePath: $imagePath) {
       id
       body
+      imagePath
       createdAt
       username
       likes {
@@ -113,6 +128,7 @@ const FETCH_POSTS_QUERY = gql`
         getPosts{
         id
         body
+        imagePath
         username
         createdAt
         likes{

@@ -39,7 +39,7 @@ const Home = () => {
             : (
                 <div className="posts-grid">
                     {posts.map((post => (
-                        <PostCard post={post} key={post.id}/>
+                        <PostCard post={post} key={post.id} profile/>
                     )))}
                 </div>
             )
@@ -54,6 +54,7 @@ const FETCH_POSTS_QUERY = gql`
         getPosts{
         id
         body
+        imagePath
         username
         createdAt
         edited

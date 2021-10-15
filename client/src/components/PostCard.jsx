@@ -16,10 +16,11 @@ import { Link } from 'react-router-dom'
 
 import {LikeButton} from "./"
 import {AuthContext} from "../context/auth"
+import { IconContext } from "react-icons";
 
 import "../styles/components/postCard.scss"
 
-const PostCard = ({post: {body, username, createdAt, id, likes, comments, edited}}) => {
+const PostCard = ({post: {body, username, createdAt, id, likes, comments, edited, imagePath}, profile}) => {
     let postLink = `/post/${id}`
     let userLink = `/profile/${username}`
 
@@ -82,7 +83,8 @@ const PostCard = ({post: {body, username, createdAt, id, likes, comments, edited
     return (
         <>
         {userData && (
-        <div className="post-card">
+        <div className={profile ? "post-card" : "post-card hover"}>
+            {profile && (
             <div className="post-user-container">
                 <Link to={userLink}>
                     <div className="post-user-image">
@@ -111,19 +113,32 @@ const PostCard = ({post: {body, username, createdAt, id, likes, comments, edited
                             Go to post
                         </MenuItem>
                     </Link>
-                    
-
                 </Menu>
             </div>
+            )}
             <div className="post-card-content">
-                <div className="post-body">{body}</div>
-                <div className="post-createdAt">{_.capitalize(moment(createdAt).fromNow(true))}</div>
-            </div>
-            { edited && (
-                    <div className="edited">
-                        (edited)
+                <div className="post-body">
+                {imagePath && (
+                    <>
+                    <div className="post-image">
+                        <img src={imagePath} alt="" />
                     </div>
+                    <div className="divider"/>
+                    </>
                 )}
+                <div className="post-caption">
+                    {body}
+                </div>
+                </div>
+            </div>
+            <div className="edited">
+                <div className="post-createdAt">{_.capitalize(moment(createdAt).fromNow(true))}</div>
+                {edited && (
+                    <span>&nbsp; (edited)</span>
+                )}
+            </div>
+
+            {profile && (
             <div className="post-actions">
                 <LikeButton id={id} likes={likes} count={true}/>
                 <Link to = {postLink}>
@@ -137,8 +152,22 @@ const PostCard = ({post: {body, username, createdAt, id, likes, comments, edited
                         </div>
                     </div>
                 </Link>
-
                 </div>
+            )}
+            {!profile && (
+                <div className="post-actions-hover">
+                    <div className="like">
+                        <span>{likes?.length}</span>
+                        <IconContext.Provider value={{color: "#fff"}}>
+                            <BsIcon.BsHeartFill/>
+                        </IconContext.Provider>
+                    </div>
+                    <div className="comment">
+                        <span>{commentCount}</span>
+                        <VscIcon.VscComment/>
+                    </div>
+                </div>
+            )}
         </div>)}
         </>
     )

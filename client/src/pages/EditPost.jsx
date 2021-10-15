@@ -2,7 +2,9 @@ import React, {useState, useContext} from 'react'
 import {useParams, useHistory} from 'react-router-dom'
 import {useMutation, useQuery} from "@apollo/client"
 import gql from 'graphql-tag'
+import FileBase from 'react-file-base64';
 
+import NoImageSvg from "../assets/NoImageSvg"
 import { Navbar } from '../components'
 import {useForm} from "../utils/hooks"
 import {AuthContext} from "../context/auth";
@@ -14,11 +16,11 @@ const EditPost = () => {
     const {user} = useContext(AuthContext)
     const {id} = useParams()
     const history = useHistory();
-    const [errors, setErrors] = useState(null)
+    const [errors, setErrors] = useState({})
 
     let postData
 
-    const {data: cachedData} = useQuery(FETCH_POSTS_QUERY)
+    useQuery(FETCH_POSTS_QUERY)
 
     const {loading, data} = useQuery(GET_POST, {
         variables: {postId: id}
@@ -28,14 +30,14 @@ const EditPost = () => {
         postData = data.getPost
     }
 
-    console.log(postData)
+    const [image, setImage] = useState(postData?.imagePath)
 
     const { onChange, onSubmit, values } = useForm(editPostCallback, {
         body: postData?.body
     });
 
     const [editPost] = useMutation(EDIT_POST_MUTATION, {
-        variables: {postId: id, body: values.body},
+        variables: {postId: id, body: values.body, imagePath: image?.imagePath},
         update(proxy, result) {
             const data = proxy.readQuery({
                 query: FETCH_POSTS_QUERY,
@@ -56,7 +58,7 @@ const EditPost = () => {
             history.push(`/post/${id}`)
         },
         onError(err) {
-            setErrors(err.graphQLErrors[0].message);
+            setErrors(err.graphQLErrors[0].extensions.errors);
             let input = document.querySelector(".edit-post-caption-input")  
             input.focus()  
         },
@@ -64,7 +66,7 @@ const EditPost = () => {
 
     function editPostCallback() {
         editPost();
-      }
+    }
 
     return (
         <>
@@ -77,7 +79,7 @@ const EditPost = () => {
                   <div className="input-wrapper">
                   <input 
                         type="text" 
-                        className={errors ? "edit-post-caption-input error" : "edit-post-caption-input" }
+                        className={errors.body ? "edit-post-caption-input error" : "edit-post-caption-input" }
                         name="body"
                         onChange={onChange}
                         autoComplete="off"
@@ -85,13 +87,25 @@ const EditPost = () => {
                     />
                     <label htmlFor="body" className="body-label">Body</label>
                   </div>
-                    <button type="submit" className="edit-post-submit-btn">Submit</button>
-                </form>
-                {errors && (
-                  <div className="error-container">
-                    1.  {errors}
+                  <div className="image-input-wrapper">
+                      <div className="post-image-container">
+                      {image?.imagePath ? (
+                        <img src={image.imagePath} alt="" />
+                      ) : (
+                        <NoImageSvg/>
+                      )}
+                      </div>
+                      <FileBase type="file" multiple={false} onDone={({ base64 }) => setImage({imagePath: base64 })} />
                   </div>
-                )}
+                    <button type="submit" className="edit-post-submit-btn">Submit</button>
+                    {Object.keys(errors).length > 0 && (
+                    <div className="error-container">
+                        {Object.keys(errors).length > 0 &&
+                            Object.values(errors).map((value) => (
+                                <li key={value}>{value}</li>
+                            ))}
+                    </div>)}
+                </form>
             </div>
             <div className="svg-container">
                 <EditPostSvg/>
@@ -118,6 +132,7 @@ const FETCH_POSTS_QUERY = gql`
         getPosts{
         id
         body
+        imagePath
         username
         createdAt
         likes{
@@ -139,11 +154,13 @@ const EDIT_POST_MUTATION = gql`
     mutation (
         $postId: ID!
         $body: String!
+        $imagePath: String
     ){
-        editPost(postId: $postId, body: $body){
+        editPost(postId: $postId, body: $body, imagePath: $imagePath){
             id
             body
             username
+            imagePath
         }
     }
 `
@@ -155,6 +172,7 @@ const GET_POST = gql`
         getPost(postId: $postId){
         id
         body
+        imagePath
         username
         createdAt
         likes{

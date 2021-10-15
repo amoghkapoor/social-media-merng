@@ -11,18 +11,19 @@
 		width: 60%;
 		.heading {
 			font-size: 2.5rem;
-			margin-bottom: 5rem;
+			margin-bottom: 2rem;
 		}
 
 		.edit-post-form {
-			width: 60%;
+			width: 100%;
 			display: flex;
 			flex-direction: column;
+			position: relative;
 
 			.input-wrapper {
 				position: relative;
-				width: 100%;
-				margin-bottom: 2rem;
+				width: 60%;
+				margin-bottom: 1rem;
 
 				.edit-post-caption-input {
 					margin-top: 1.5rem;
@@ -75,6 +76,7 @@
 			}
 
 			.edit-post-submit-btn {
+				width: 60%;
 				padding: 0.75rem 1rem;
 				font-size: 1.25rem;
 				background-color: $sky-blue;
@@ -88,9 +90,34 @@
 					background-color: $blue;
 				}
 			}
+
+			.image-input-wrapper {
+				margin-bottom: 1rem;
+
+				.post-image-container {
+					border: 2px solid $grey;
+					width: 60%;
+					height: 25rem;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					margin-bottom: 1rem;
+					border-radius: 0.5rem;
+					background-color: $light;
+
+					img {
+						width: 100%;
+						height: 100%;
+						object-fit: contain;
+					}
+				}
+			}
 		}
 
 		.error-container {
+			position: absolute;
+			right: 2rem;
+			top: 0;
 			margin-top: 3rem;
 			color: $red;
 		}
