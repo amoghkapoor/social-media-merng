@@ -4,7 +4,6 @@
 	width: 100vw;
 	height: 100vh;
 	display: grid;
-	overflow: hidden;
 	grid-template-columns: 0.8fr 1fr;
 	place-items: center;
 	position: relative;
@@ -15,8 +14,8 @@
 		height: 90%;
 		display: flex;
 		padding: 3rem 8rem;
-		padding-top: 2rem;
-		padding-bottom: 5rem;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
 		flex-direction: column;
 		justify-content: space-evenly;
 
@@ -43,6 +42,7 @@
 				outline: none;
 				border: 1px solid #ced0d3;
 				transition: all 0.3s ease;
+				width: 100%;
 
 				&:hover:not(.error) {
 					border-color: $blue-400;
@@ -51,6 +51,23 @@
 				&:focus:not(.error) {
 					border-color: $sky-blue;
 				}
+			}
+
+			.password-show-button {
+				background-color: transparent;
+				position: absolute;
+				top: 68.5%;
+				right: 6px;
+				margin-top: -13px;
+				padding: 4px 10px;
+				border-top-left-radius: 2px;
+				border-top-right-radius: 2px;
+				border-bottom-right-radius: 2px;
+				border-bottom-left-radius: 2px;
+				color: $sky-blue;
+				text-align: center;
+				text-decoration: none;
+				cursor: pointer;
 			}
 
 			@keyframes shake {
@@ -91,6 +108,7 @@
 			color: #fff;
 			border: none;
 			cursor: pointer;
+			margin-top: 1rem;
 		}
 
 		.register-error-container {

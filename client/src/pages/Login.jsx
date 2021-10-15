@@ -3,6 +3,8 @@ import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import { useHistory, Link } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
+import PasswordMask from 'react-password-mask';
+import * as BsIcon from "react-icons/bs"
 
 import { AuthContext } from "../context/auth";
 import { useForm } from "../utils/hooks";
@@ -33,8 +35,6 @@ function Login() {
     function loginUserCallback() {
         loginUser();
     }
-
-    console.log(errors)
 
     return (
         <>
@@ -69,12 +69,23 @@ function Login() {
                         <label className="login-form-label" htmlFor="password">
                             Password
                         </label>
-                        <input
+                        {/* <input
                             name="password"
                             type="password"
                             value={values.password}
                             onChange={onChange}
                             className={errors.password || errors.general ? "login-input error" : "login-input"}
+                        /> */}
+                        <PasswordMask
+                            name="password"
+                            type="password"
+                            value={values.password}
+                            inputClassName={errors.password || errors.general ? "login-input error" : "login-input"}
+                            onChange={onChange}
+                            showButtonContent={<BsIcon.BsFillEyeFill/>}
+                            hideButtonContent={<BsIcon.BsFillEyeSlashFill/>}
+                            buttonClassName="password-show-button"
+                            useVendorStyles={false}
                         />
                         <Link to="/forgot-password" className="forget-password">Forgot Password?</Link>
                     </div>

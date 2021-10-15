@@ -3,6 +3,8 @@ import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import { useHistory, Link } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
+import PasswordMask from 'react-password-mask';
+import * as BsIcon from "react-icons/bs"
 
 import RegisterSvg from "../assets/RegisterSvg"
 import { AuthContext } from "../context/auth";
@@ -111,12 +113,16 @@ function Register() {
             <label htmlFor="password" className="register-form-label">
               Password
             </label>
-            <input
-              name="password"
-              type="password"
-              value={values.password}
-              onChange={onChange}
-              className={errors.password ? "register-input error" : "register-input"}
+            <PasswordMask
+                name="password"
+                type="password"
+                value={values.password}
+                inputClassName={errors.password || errors.general ? "register-input error" : "register-input"}
+                onChange={onChange}
+                showButtonContent={<BsIcon.BsFillEyeFill/>}
+                hideButtonContent={<BsIcon.BsFillEyeSlashFill/>}
+                buttonClassName="password-show-button"
+                useVendorStyles={false}
             />
           </div>
 
@@ -124,12 +130,16 @@ function Register() {
             <label htmlFor="confirmPassword" className="register-form-label">
             Confirm Password
             </label>
-            <input
-              name="confirmPassword"
-              type="password"
-              value={values.confirmPassword}
-              onChange={onChange}
-              className={errors.password ? "register-input error" : "register-input"}
+            <PasswordMask
+                name="confirmPassword"
+                type="password"
+                value={values.confirmPassword}
+                inputClassName={errors.confirmPassword || errors.general ? "register-input error" : "register-input"}
+                onChange={onChange}
+                showButtonContent={<BsIcon.BsFillEyeFill/>}
+                hideButtonContent={<BsIcon.BsFillEyeSlashFill/>}
+                buttonClassName="password-show-button"
+                useVendorStyles={false}
             />
           </div>
 

@@ -38,6 +38,9 @@
 				outline: none;
 				border: 1px solid #ced0d3;
 				transition: all 0.3s ease;
+				position: relative;
+				margin: 0 !important;
+				width: 100%;
 
 				&:hover:not(.error) {
 					border-color: $blue-400;
@@ -46,6 +49,19 @@
 				&:focus:not(.error) {
 					border-color: $sky-blue;
 				}
+			}
+
+			.password-show-button {
+				background-color: transparent;
+				position: absolute;
+				top: 43%;
+				right: 6px;
+				padding: 4px 10px;
+				color: $sky-blue;
+				text-align: center;
+				text-decoration: none;
+				cursor: pointer;
+				margin: 0 !important;
 			}
 
 			@keyframes shake {
