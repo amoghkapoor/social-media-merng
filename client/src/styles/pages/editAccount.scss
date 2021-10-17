@@ -1,0 +1,59 @@
+@import "../defaults/colors";
+
+.edit-account-container {
+    display: flex;
+    height: 100vh;
+    padding: 2rem 10rem;
+    padding-top: 1;
+
+    .left {
+        width: 30%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        border: 1px solid #dddddd;
+        border-radius: 0.25rem 0 0 0.25rem;
+
+        .edit-account-options-btn {
+            cursor: pointer;
+            padding: 1.25rem 0.75rem;
+            color: rgb(65, 65, 65);
+            background: transparent;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease-in;
+            border-left: 3px solid transparent;
+
+            &:hover:not(.selected-option) {
+                border-color: #dfdfdf;
+                background-color: #f0f0f0;
+            }
+        }
+
+        .selected-option {
+            @extend .edit-account-options-btn;
+            color: black;
+            border-color: #000;
+            font-weight: 500;
+        }
+    }
+
+    .right {
+        // background-color: blue;
+        background-color: #fff;
+        border-radius: 0 0.25rem 0.25rem 0;
+        border: 1px solid #dddddd;
+        border-left: 0;
+        width: 100%;
+        height: 100%;
+
+        .update-user-form {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+    }
+}

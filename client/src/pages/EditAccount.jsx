@@ -4,7 +4,9 @@ import { useMutation, useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import FileBase from "react-file-base64";
 
+import { Navbar } from "../components";
 import { useForm } from "../utils/hooks";
+import "../styles/pages/editAccount.scss";
 
 const UpdateUser = () => {
     const { user } = useContext(AuthContext);
@@ -50,38 +52,38 @@ const UpdateUser = () => {
 
     return (
         <>
-            <div>
-                <form onSubmit={onSubmit}>
-                    <input
-                        type="text"
-                        name="username"
-                        placeholder="username"
-                        value={values.username}
-                        onChange={onChange}
-                    />
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="name"
-                        value={values.name}
-                        onChange={onChange}
-                    />
-                    <input
-                        type="text"
-                        name="email"
-                        placeholder="email"
-                        value={values.email}
-                        onChange={onChange}
-                    />
+            <form className="update-user-form" onSubmit={onSubmit}>
+                <div className="update-user-image-container">
                     <img src={avatarUrl} alt="" />
-                    <FileBase
-                        type="file"
-                        multiple={false}
-                        onDone={({ base64 }) => setAvatarUrl(base64)}
-                    />
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+                </div>
+                <FileBase
+                    type="file"
+                    multiple={false}
+                    onDone={({ base64 }) => setAvatarUrl(base64)}
+                />
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="username"
+                    value={values.username}
+                    onChange={onChange}
+                />
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="name"
+                    value={values.name}
+                    onChange={onChange}
+                />
+                <input
+                    type="text"
+                    name="email"
+                    placeholder="email"
+                    value={values.email}
+                    onChange={onChange}
+                />
+                <button type="submit">Submit</button>
+            </form>
         </>
     );
 };
@@ -120,7 +122,7 @@ const ChangePassword = () => {
 
     return (
         <>
-            <div>
+            <div className="update-password-container">
                 <form onSubmit={onSubmit}>
                     <input
                         type="text"
@@ -148,10 +150,37 @@ const EditAccount = () => {
 
     return (
         <>
-            <button onClick={() => setDisplay(1)}>Edit Account</button>
-            <button onClick={() => setDisplay(2)}>Change Password</button>
+            <Navbar />
+            <div className="edit-account-container">
+                <div className="left">
+                    <button
+                        className={
+                            display === 1
+                                ? "selected-option"
+                                : "edit-account-options-btn"
+                        }
+                        onClick={() => setDisplay(1)}
+                    >
+                        Edit Account
+                    </button>
+                    <button
+                        className={
+                            display === 2
+                                ? "selected-option"
+                                : "edit-account-options-btn"
+                        }
+                        onClick={() => setDisplay(2)}
+                    >
+                        Change Password
+                    </button>
+                </div>
 
-            <div>{display === 1 ? <UpdateUser /> : <ChangePassword />}</div>
+                <div className="right">
+                    <div>
+                        {display === 1 ? <UpdateUser /> : <ChangePassword />}
+                    </div>
+                </div>
+            </div>
         </>
     );
 };
