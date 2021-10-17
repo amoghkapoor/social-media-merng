@@ -76,13 +76,6 @@ function Login() {
                         <label className="login-form-label" htmlFor="password">
                             Password
                         </label>
-                        {/* <input
-                            name="password"
-                            type="password"
-                            value={values.password}
-                            onChange={onChange}
-                            className={errors.password || errors.general ? "login-input error" : "login-input"}
-                        /> */}
                         <PasswordMask
                             name="password"
                             type="password"

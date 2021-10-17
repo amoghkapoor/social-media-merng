@@ -109,5 +109,3 @@ module.exports.validatePost = (body, imagePath) => {
         valid: Object.keys(errors).length < 1
     }
 }
-
-// && fileExt !== "mp4" && fileExt !== "mov" && fileExt !== "ogg"

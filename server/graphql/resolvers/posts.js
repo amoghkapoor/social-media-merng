@@ -85,11 +85,9 @@ module.exports = {
             const post = await Post.findById(postId)
             if (post) {
                 if (post.likes.find(like => like.username === username)) {
-                    // Already liked
                     post.likes = post.likes.filter(like => like.username !== username)
                 }
                 else {
-                    // Not liked
                     post.likes.push({
                         user: id,
                         username,

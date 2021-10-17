@@ -1,6 +1,13 @@
 require("dotenv").config()
 const { ApolloServer } = require("apollo-server")
 const mongoose = require("mongoose")
+const express = require("express")
+
+const app = express()
+
+app.get("/", (req, res) => {
+    res.write("Socialize Server")
+})
 
 const typeDefs = require("./graphql/typeDefs")
 const resolvers = require("./graphql/resolvers")
