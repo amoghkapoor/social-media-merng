@@ -1,7 +1,7 @@
 require("dotenv").config()
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken")
-const { UserInputError } = require("apollo-server")
+const { UserInputError } = require("apollo-server-express")
 const crypto = require("crypto")
 
 const checkAuth = require("../../utils/checkAuth")

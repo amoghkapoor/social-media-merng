@@ -1,5 +1,5 @@
 require("dotenv").config()
-const { AuthenticationError } = require("apollo-server")
+const { AuthenticationError } = require("apollo-server-express")
 const jwt = require("jsonwebtoken")
 
 const secret_key = process.env.SECRET_KEY
