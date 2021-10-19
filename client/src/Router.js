@@ -16,7 +16,7 @@ const MyRouter = () => {
                 <AuthRoute exact path="/" component={Login} />
                 <AuthRoute path="/register" component={Register} />
                 <AuthRoute path="/forgot-password" component={ForgotPassword} />
-                <AuthRoute path="/passwordReset" component={ResetPassword} />
+                <AuthRoute path="/reset-password" component={ResetPassword} />
                 <Route component={Error404} />
             </Switch >
         </Router>

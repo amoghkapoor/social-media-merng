@@ -48,9 +48,9 @@ module.exports = {
                 createdAt: Date.now(),
             }).save()
 
-            const link = `http://localhost:3000/passwordReset?token=${resetToken}&id=${user._id}`
+            const link = `http://localhost:3000/reset-password?token=${resetToken}&id=${user._id}`
 
-            sendEmail(user.email, "Password Reset Request", { name: user.name, link: link, }, "./template/resetPassword.handlebars")
+            sendEmail(user.email, "Your Socialize password reset", { name: user.username, link: link, }, "./template/resetPassword.handlebars")
 
             return link
         }
@@ -142,6 +142,11 @@ module.exports = {
 
             const { valid, errors } = validateUsernameAndEmail(username, email)
 
+            if (name.trim() === "") {
+                errors.name = "Name must not be empty"
+                throw new UserInputError('Errors', { errors });
+            }
+
             if (!valid) {
                 throw new UserInputError('Errors', { errors });
             }
@@ -205,7 +210,7 @@ module.exports = {
             const user = await User.findById(id)
 
             const match = await bcrypt.compare(password, user.password)
-            if (!match) {
+            if (match) {
                 errors.general = "Same as previous password"
                 throw new UserInputError("Same as previous password", {
                     errors
@@ -240,12 +245,23 @@ module.exports = {
             }
 
             const { valid, errors } = validatePassword(password, confirmPassword)
+
+            const user = await User.findById(id)
+
+            const match = await bcrypt.compare(password, user.password)
+            if (match) {
+                errors.general = "Same as previous password"
+                throw new UserInputError("Same as previous password", {
+                    errors
+                })
+            }
+
             if (!valid) {
                 throw new UserInputError('Errors', { errors })
             }
 
             password = await bcrypt.hash(password, 12)
-            const user = await User.findByIdAndUpdate(id, { password }, { new: true })
+            const updateUser = await User.findByIdAndUpdate(id, { password }, { new: true })
 
             return "Successfully Updated"
         }
