@@ -3,6 +3,8 @@ import { AuthContext } from "../context/auth";
 import { useMutation, useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import FileBase from "react-file-base64";
+import PasswordMask from "react-password-mask";
+import * as BsIcon from "react-icons/bs";
 
 import { Navbar } from "../components";
 import { useForm } from "../utils/hooks";
@@ -34,7 +36,7 @@ const UpdateUser = () => {
             window.location.pathname = `/profile/${userData.username}`;
         },
         onError(err) {
-            console.log(err);
+            console.error(err.graphQLErrors[0].extensions.errors);
             setErrors(err.graphQLErrors[0].extensions.errors);
         },
         variables: {
@@ -61,28 +63,70 @@ const UpdateUser = () => {
                     multiple={false}
                     onDone={({ base64 }) => setAvatarUrl(base64)}
                 />
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="username"
-                    value={values.username}
-                    onChange={onChange}
-                />
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="name"
-                    value={values.name}
-                    onChange={onChange}
-                />
-                <input
-                    type="text"
-                    name="email"
-                    placeholder="email"
-                    value={values.email}
-                    onChange={onChange}
-                />
-                <button type="submit">Submit</button>
+                <div className="update-user-input-wrapper">
+                    <label
+                        htmlFor="username"
+                        className="update-user-input-label"
+                    >
+                        Username
+                    </label>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="username"
+                        value={values.username}
+                        onChange={onChange}
+                        className={
+                            errors.username
+                                ? "update-user-input error"
+                                : "update-user-input"
+                        }
+                    />
+                    <label htmlFor="name" className="update-user-input-label">
+                        Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="name"
+                        value={values.name}
+                        onChange={onChange}
+                        className={
+                            errors.name
+                                ? "update-user-input error"
+                                : "update-user-input"
+                        }
+                    />
+                    <label htmlFor="email" className="update-user-input-label">
+                        Email
+                    </label>
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder="email"
+                        value={values.email}
+                        onChange={onChange}
+                        className={
+                            errors.email
+                                ? "update-user-input error"
+                                : "update-user-input"
+                        }
+                    />
+                </div>
+                {Object.keys(errors).length > 0 ? (
+                    <div className="update-user-error-container">
+                        {Object.keys(errors).length > 0 &&
+                            Object.values(errors).map((value) => (
+                                <li key={value}>{value}</li>
+                            ))}
+                    </div>
+                ) : (
+                    <div style={{ height: "4rem", marginTop: "2rem" }} />
+                )}
+                <button className="update-user-btn" type="submit">
+                    Update User
+                </button>
             </form>
         </>
     );
@@ -105,8 +149,6 @@ const ChangePassword = () => {
             window.location.pathname = `/profile/${user.username}`;
         },
         onError(err) {
-            console.error(err);
-            console.error(err.graphQLErrors[0].extensions.errors);
             setErrors(err.graphQLErrors[0].extensions.errors);
         },
         variables: {
@@ -122,25 +164,74 @@ const ChangePassword = () => {
 
     return (
         <>
-            <div className="update-password-container">
-                <form onSubmit={onSubmit}>
-                    <input
-                        type="text"
-                        name="password"
-                        placeholder="password"
-                        value={values.password}
-                        onChange={onChange}
-                    />
-                    <input
-                        type="text"
-                        name="confirmPassword"
-                        placeholder="confirm password"
-                        value={values.confirmPassword}
-                        onChange={onChange}
-                    />
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+            <form onSubmit={onSubmit} className="update-password-form">
+                <div className="update-password-input-container">
+                    <label
+                        className="update-password-input-label"
+                        htmlFor="password"
+                    >
+                        New Password
+                    </label>
+
+                    <div className="update-password-input-wrapper">
+                        <PasswordMask
+                            name="password"
+                            type="password"
+                            value={values.password}
+                            inputClassName={
+                                errors.password || errors.general
+                                    ? "update-password-input error"
+                                    : "update-password-input"
+                            }
+                            onChange={onChange}
+                            showButtonContent={<BsIcon.BsFillEyeFill />}
+                            hideButtonContent={<BsIcon.BsFillEyeSlashFill />}
+                            buttonClassName="password-show-button"
+                            useVendorStyles={false}
+                            autoComplete="off"
+                        />
+                    </div>
+
+                    <label
+                        className="update-password-input-label"
+                        htmlFor="confirmPassword"
+                    >
+                        Confirm New Password
+                    </label>
+                    <div className="update-password-input-wrapper">
+                        <PasswordMask
+                            name="confirmPassword"
+                            type="password"
+                            value={values.confirmPassword}
+                            inputClassName={
+                                errors.password || errors.general
+                                    ? "update-password-input error"
+                                    : "update-password-input"
+                            }
+                            onChange={onChange}
+                            showButtonContent={<BsIcon.BsFillEyeFill />}
+                            hideButtonContent={<BsIcon.BsFillEyeSlashFill />}
+                            buttonClassName="password-show-button"
+                            useVendorStyles={false}
+                            autoComplete="off"
+                        />
+                    </div>
+                </div>
+
+                {Object.keys(errors).length > 0 ? (
+                    <div className="update-password-error-container">
+                        {Object.keys(errors).length > 0 &&
+                            Object.values(errors).map((value) => (
+                                <li key={value}>{value}</li>
+                            ))}
+                    </div>
+                ) : (
+                    <div style={{ height: "4rem", marginTop: "2rem" }} />
+                )}
+                <button className="update-password-btn" type="submit">
+                    Update Password
+                </button>
+            </form>
         </>
     );
 };

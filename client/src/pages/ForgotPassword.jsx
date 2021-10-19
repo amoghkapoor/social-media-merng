@@ -11,6 +11,7 @@ const ForgotPassword = () => {
     const [values, setValues] = useState("");
     const [query, setQuery] = useState(true);
     const [errors, setErrors] = useState();
+    const [completed, setCompleted] = useState(false);
 
     const onChange = (e) => {
         setValues(e.target.value);
@@ -26,7 +27,10 @@ const ForgotPassword = () => {
         variables: { email: values },
         onCompleted: () => {
             let input = document.querySelector(".forgot-password-input");
+            input.value = "";
+            input.classList.remove("error");
             input.blur();
+            setCompleted(true);
         },
     });
 
@@ -34,6 +38,7 @@ const ForgotPassword = () => {
         if (error) {
             setQuery(true);
             setErrors(error.graphQLErrors[0].message);
+            console.error(error.graphQLErrors[0].message);
             let input = document.querySelector(".forgot-password-input");
             input.focus();
         }
@@ -77,14 +82,21 @@ const ForgotPassword = () => {
                         <button type="submit" className="forgot-password-btn">
                             Submit
                         </button>
-
-                        <div className="forgot-password-error">
-                            {errors && <>{errors}</>}
-                        </div>
+                        {errors && !completed && (
+                            <div className="forgot-password-error">
+                                <>{errors}</>
+                            </div>
+                        )}
+                        {completed && (
+                            <div className="forgot-password-confirmation">
+                                An email has been sent to {values} with further
+                                instructions.
+                            </div>
+                        )}
                     </form>
 
                     <Link to="/" className="signin-link">
-                        <HiIcon.HiArrowLeft /> Back to sign in
+                        <HiIcon.HiArrowLeft /> &nbsp; Back to sign in
                     </Link>
                 </div>
             </div>

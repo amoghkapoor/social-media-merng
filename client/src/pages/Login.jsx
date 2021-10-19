@@ -26,8 +26,7 @@ function Login() {
             history.push("/");
         },
         onError(err) {
-            console.error(err);
-            // setErrors(err.graphQLErrors[0].extensions.errors);
+            setErrors(err.graphQLErrors[0].extensions.errors);
         },
         variables: values,
     });

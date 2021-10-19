@@ -1,14 +1,13 @@
 @import "../defaults/colors";
 
 .edit-account-container {
-    display: flex;
-    height: 100vh;
+    display: grid;
+    height: 100%;
+    grid-template-columns: 20% 80%;
     padding: 2rem 10rem;
     padding-top: 1;
 
     .left {
-        width: 30%;
-        height: 100%;
         display: flex;
         flex-direction: column;
         background-color: #fff;
@@ -42,18 +41,178 @@
     }
 
     .right {
-        // background-color: blue;
         background-color: #fff;
         border-radius: 0 0.25rem 0.25rem 0;
         border: 1px solid #dddddd;
         border-left: 0;
         width: 100%;
-        height: 100%;
 
         .update-user-form {
             display: flex;
             flex-direction: column;
+            align-items: center;
             height: 100%;
+            padding: 2rem;
+
+            .update-user-image-container {
+                width: 10rem;
+                height: 10rem;
+                border-radius: 50%;
+                background-color: $light;
+                border: 1px solid $grey;
+                margin-bottom: 2rem;
+
+                img {
+                    border-radius: 50%;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .update-user-input-wrapper {
+                width: 50%;
+                margin: 2rem 0;
+                display: grid;
+                grid-template-columns: max-content 1fr;
+                gap: 2rem 1rem;
+                align-items: center;
+
+                .update-user-input-label {
+                    margin-right: 1.25rem;
+                    font-size: 1.05rem;
+                    font-weight: 600;
+                    text-align: right;
+                }
+
+                .update-user-input {
+                    padding: 0.5rem 0.5rem;
+                    border-radius: 0.25rem;
+                    border: 1px solid #d8d8d8;
+                    transition: all 0.3s ease-out;
+
+                    &:hover:not(.error) {
+                        border-color: $blue-400;
+                    }
+
+                    &:focus:not(.error) {
+                        border-color: $sky-blue;
+                    }
+                }
+
+                @keyframes shake {
+                    0% {
+                        transform: translateX(0);
+                    }
+                    25% {
+                        transform: translateX(8px);
+                    }
+                    75% {
+                        transform: translateX(-8px);
+                    }
+                    100% {
+                        transform: translateX(0);
+                    }
+                }
+
+                .error {
+                    border-color: $red;
+                    animation: shake 0.1635s 0s 3;
+                }
+            }
+
+            .update-user-btn {
+                width: 20%;
+                margin-top: 2rem;
+                padding: 0.75rem 1rem;
+                border: 1px solid $sky-blue;
+                background-color: #fff;
+                color: $sky-blue;
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $sky-blue;
+                    color: #fff;
+                    border-color: #fff;
+                }
+            }
+
+            .update-user-error-container {
+                margin-top: 2rem;
+                color: $red;
+                height: 4rem;
+
+                li {
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+
+        .update-password-form {
+            @extend .update-user-form;
+
+            .update-password-input-container {
+                @extend .update-user-input-wrapper;
+                width: 70%;
+
+                .update-password-input-label {
+                    @extend .update-user-input-label;
+                }
+
+                .update-password-input-wrapper {
+                    position: relative;
+                    width: 100%;
+                }
+
+                .update-password-input {
+                    @extend .update-user-input;
+                    position: relative;
+                    width: 100%;
+                }
+
+                @keyframes shake {
+                    0% {
+                        transform: translateX(0);
+                    }
+                    25% {
+                        transform: translateX(8px);
+                    }
+                    75% {
+                        transform: translateX(-8px);
+                    }
+                    100% {
+                        transform: translateX(0);
+                    }
+                }
+
+                .error {
+                    border-color: $red;
+                    animation: shake 0.1635s 0s 3;
+                }
+            }
+
+            .update-password-btn {
+                @extend .update-user-btn;
+                width: 30%;
+            }
+
+            .update-password-error-container {
+                @extend .update-user-error-container;
+            }
+
+            .password-show-button {
+                background-color: transparent;
+                position: absolute;
+                top: 22%;
+                right: 6px;
+                padding: 4px 10px;
+                color: $sky-blue;
+                text-align: center;
+                text-decoration: none;
+                cursor: pointer;
+                margin: 0 !important;
+            }
         }
     }
 }
