@@ -88,7 +88,13 @@ const PostCard = ({
                             <Link to={userLink}>
                                 <div className="post-user-image">
                                     <img
-                                        src={userData.avatarUrl}
+                                        src={
+                                            userData.avatarUrl.includes(
+                                                "https://avatars.dicebear.com"
+                                            )
+                                                ? `${userData.avatarUrl}`
+                                                : `${process.env.REACT_APP_SERVER_URL}/images/${userData.avatarUrl}.jpeg`
+                                        }
                                         alt={userData.name}
                                     />
                                 </div>
@@ -129,7 +135,10 @@ const PostCard = ({
                             {imagePath && (
                                 <>
                                     <div className="post-image">
-                                        <img src={imagePath} alt="" />
+                                        <img
+                                            src={`${process.env.REACT_APP_SERVER_URL}/images/${imagePath}.jpeg`}
+                                            alt=""
+                                        />
                                     </div>
                                     <div className="divider" />
                                 </>

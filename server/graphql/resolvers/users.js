@@ -3,6 +3,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 const { UserInputError } = require("apollo-server-express")
 const crypto = require("crypto")
+const shortid = require("shortid")
+const { createWriteStream } = require("fs")
+const {
+    GraphQLUpload,
+} = require('graphql-upload');
+const path = require('path')
 
 const checkAuth = require("../../utils/checkAuth")
 const { validateRegisterInput, validateLoginInput, validateUsernameAndEmail, validatePassword } = require("../../utils/validators")
@@ -24,6 +30,7 @@ function generateToken(user) {
 }
 
 module.exports = {
+    Upload: GraphQLUpload,
     Query: {
         async getUser(_, { username }) {
             const user = await User.findOne({ username })
@@ -140,6 +147,17 @@ module.exports = {
         async updateUser(_, { updateInput: { name, username, avatarUrl, email, id } }, context) {
             const user = checkAuth(context)
 
+            const fileId = shortid.generate()
+
+            if (avatarUrl) {
+                const { createReadStream, filename, mimetype, encoding } = await avatarUrl;
+                const stream = createReadStream();
+
+                const pathName = path.join(process.cwd(), `/public/images/${fileId}.jpeg`)
+
+                await stream.pipe(createWriteStream(pathName))
+            }
+
             const { valid, errors } = validateUsernameAndEmail(username, email)
 
             if (name.trim() === "") {
@@ -161,7 +179,7 @@ module.exports = {
                     })
                 }
                 else {
-                    const updatedUser = await User.findByIdAndUpdate(id, { username: username, email: email, name: name, avatarUrl: avatarUrl }, { new: true })
+                    const updatedUser = await User.findByIdAndUpdate(id, { username: username, email: email, name: name, avatarUrl: fileId }, { new: true })
 
                     const updatedPost = await Post.updateMany({ user: id }, { username: username })
                     const postLikes = await Post.updateMany(
@@ -183,7 +201,7 @@ module.exports = {
                 }
             }
             else {
-                const updatedUser = await User.findByIdAndUpdate(id, { email: email, name: name, avatarUrl: avatarUrl }, { new: true })
+                const updatedUser = await User.findByIdAndUpdate(id, { email: email, name: name, avatarUrl: fileId }, { new: true })
 
                 const updatedPost = await Post.updateMany({ user: id }, { username: username })
                 const postLikes = await Post.updateMany(

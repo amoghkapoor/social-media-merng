@@ -100,7 +100,13 @@ const CommentCard = ({
                     <Link to={`/profile/${username}`}>
                         <div className="comment-user-image">
                             <img
-                                src={userData?.avatarUrl}
+                                src={
+                                    userData?.avatarUrl.includes(
+                                        "https://avatars.dicebear.com"
+                                    )
+                                        ? `${userData?.avatarUrl}`
+                                        : `${process.env.REACT_APP_SERVER_URL}/images/${userData?.avatarUrl}.jpeg`
+                                }
                                 alt={userData?.name}
                             />
                         </div>

@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import FileBase from "react-file-base64";
+import Dropzone from "react-dropzone";
 
 import AddPostSvg from "../assets/AddPostSvg";
 import NoImageSvg from "../assets/NoImageSvg";
@@ -12,7 +13,7 @@ import "../styles/pages/addPost.scss";
 
 const AddPost = () => {
     const [errors, setErrors] = useState({});
-    const [postData, setPostData] = useState(null);
+    const [fieldValue, setFieldValue] = useState();
     const history = useHistory();
 
     const { onChange, onSubmit, values } = useForm(createPostCallback, {
@@ -22,7 +23,7 @@ const AddPost = () => {
     useQuery(FETCH_POSTS_QUERY);
 
     const [createPost] = useMutation(CREATE_POST_MUTATION, {
-        variables: { body: values.body, imagePath: postData?.selectedFile },
+        variables: { body: values.body, imagePath: fieldValue },
         update(proxy, result) {
             const data = proxy.readQuery({
                 query: FETCH_POSTS_QUERY,
@@ -52,7 +53,6 @@ const AddPost = () => {
     function createPostCallback() {
         createPost();
     }
-
     return (
         <>
             <Navbar />
@@ -77,7 +77,7 @@ const AddPost = () => {
                                 Caption
                             </label>
                         </div>
-                        <div className="image-input-wrapper">
+                        {/* <div className="image-input-wrapper">
                             <div className="post-image-container">
                                 {postData?.selectedFile ? (
                                     <img src={postData?.selectedFile} alt="" />
@@ -92,7 +92,27 @@ const AddPost = () => {
                                     setPostData({ selectedFile: base64 })
                                 }
                             />
-                        </div>
+                        </div> */}
+                        <Dropzone
+                            multiple={false}
+                            onDrop={([file]) => {
+                                Object.assign(file, {
+                                    preview: URL.createObjectURL(file),
+                                });
+                                setFieldValue(file);
+                            }}
+                            accept="image/*"
+                        >
+                            {({ getRootProps, getInputProps }) => (
+                                <div {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    <p>
+                                        Drag 'n' drop some files here, or click
+                                        to select files
+                                    </p>
+                                </div>
+                            )}
+                        </Dropzone>
                         <button type="submit" className="post-submit-btn">
                             Submit
                         </button>
@@ -115,7 +135,7 @@ const AddPost = () => {
 };
 
 const CREATE_POST_MUTATION = gql`
-    mutation createPost($body: String!, $imagePath: String) {
+    mutation createPost($body: String!, $imagePath: Upload) {
         createPost(body: $body, imagePath: $imagePath) {
             id
             body

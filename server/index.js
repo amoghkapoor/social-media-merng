@@ -6,6 +6,9 @@ const http = require("http")
 const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core')
 const cors = require('cors')
 const DATABASE_URL = process.env.DATABASE_URL
+const {
+    graphqlUploadExpress,
+} = require('graphql-upload');
 
 const PORT = process.env.PORT || 5000
 
@@ -25,9 +28,12 @@ async function startApolloServer(typeDefs, resolvers) {
         resolvers,
         plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
         context: ({ req }) => ({ req }),
-        cors: corsOptions
+        cors: corsOptions,
+        uploads: false
     });
     await server.start();
+    app.use(graphqlUploadExpress())
+    app.use(express.static("public"))
     server.applyMiddleware({ app });
     await mongoose.connect(DATABASE_URL, {
         useNewUrlParser: true,

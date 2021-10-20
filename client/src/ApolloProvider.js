@@ -1,7 +1,8 @@
 import App from "./App"
-import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from "@apollo/client"
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
 import { setContext } from 'apollo-link-context'
 import { onError } from "@apollo/client/link/error";
+import { createUploadLink } from "apollo-upload-client"
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors)
@@ -12,15 +13,17 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
                 window.location.reload()
             }
             console.log(
-                `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+                `[GraphQL error]: \nMessage: ${message} \nLocation: ${locations.map(location => (location.line))
+                } ${locations.map(location => (location.column))}, \nPath: ${path}`
             )
         });
     if (networkError) console.log(`[Network error]: ${networkError}`);
 
 });
 
-const httpLink = createHttpLink({
-    uri: "http://localhost:5000/graphql"
+const uploadLink = createUploadLink({
+    uri: `${process.env.REACT_APP_SERVER_URL}/graphql`
+
 })
 
 const authLink = setContext(() => {
@@ -34,7 +37,7 @@ const authLink = setContext(() => {
 })
 
 const client = new ApolloClient({
-    link: errorLink.concat(authLink.concat(httpLink)),
+    link: errorLink.concat(authLink.concat(uploadLink)),
     cache: new InMemoryCache()
 })
 

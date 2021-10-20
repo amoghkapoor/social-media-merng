@@ -26,7 +26,14 @@ const UserImageModal = ({ show, onClose, content }) => {
             <>
                 <div className="user-image-modal">
                     <div className="user-image-modal-content">
-                        <img src={content} alt="" />
+                        <img
+                            src={
+                                content.includes("https://avatars.dicebear.com")
+                                    ? `${content}`
+                                    : `${process.env.REACT_APP_SERVER_URL}/images/${content}.jpeg`
+                            }
+                            alt=""
+                        />
                     </div>
                 </div>
                 <button
@@ -49,7 +56,14 @@ const UserImageModal = ({ show, onClose, content }) => {
         <>
             <div className="user-image-modal visible">
                 <div className="user-image-modal-content">
-                    <img src={content} alt="" />
+                    <img
+                        src={
+                            content.includes("https://avatars.dicebear.com")
+                                ? `${content}`
+                                : `${process.env.REACT_APP_SERVER_URL}/images/${content}.jpeg`
+                        }
+                        alt=""
+                    />
                 </div>
             </div>
             <button

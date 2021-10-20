@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import FileBase from "react-file-base64";
 import PasswordMask from "react-password-mask";
 import * as BsIcon from "react-icons/bs";
+import Dropzone from "react-dropzone";
 
 import { Navbar } from "../components";
 import { useForm } from "../utils/hooks";
@@ -15,6 +16,7 @@ const UpdateUser = () => {
     const context = useContext(AuthContext);
     const [avatarUrl, setAvatarUrl] = useState(null);
     const [errors, setErrors] = useState({});
+    const [fieldValue, setFieldValue] = useState();
 
     const { onChange, onSubmit, values } = useForm(updateUserCallback, {
         id: user.id,
@@ -44,9 +46,11 @@ const UpdateUser = () => {
             username: values.username,
             name: values.name,
             email: values.email,
-            avatarUrl,
+            avatarUrl: fieldValue,
         },
     });
+
+    console.log(fieldValue);
 
     function updateUserCallback() {
         updateUser();
@@ -56,13 +60,34 @@ const UpdateUser = () => {
         <>
             <form className="update-user-form" onSubmit={onSubmit}>
                 <div className="update-user-image-container">
-                    <img src={avatarUrl} alt="" />
+                    <img
+                        src={
+                            `${process.env.REACT_APP_SERVER_URL}/images/${avatarUrl}.jpeg` ||
+                            fieldValue.preview
+                        }
+                        alt=""
+                    />
                 </div>
-                <FileBase
-                    type="file"
+                <Dropzone
                     multiple={false}
-                    onDone={({ base64 }) => setAvatarUrl(base64)}
-                />
+                    onDrop={([file]) => {
+                        Object.assign(file, {
+                            preview: URL.createObjectURL(file),
+                        });
+                        setFieldValue(file);
+                    }}
+                    accept="image/*"
+                >
+                    {({ getRootProps, getInputProps }) => (
+                        <div {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            <p>
+                                Drag 'n' drop some files here, or click to
+                                select files
+                            </p>
+                        </div>
+                    )}
+                </Dropzone>
                 <div className="update-user-input-wrapper">
                     <label
                         htmlFor="username"
@@ -284,7 +309,7 @@ const UPDATE_USER_MUTATION = gql`
         $id: ID!
         $username: String!
         $name: String!
-        $avatarUrl: String!
+        $avatarUrl: Upload
     ) {
         updateUser(
             updateInput: {

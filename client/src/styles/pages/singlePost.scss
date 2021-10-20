@@ -29,6 +29,7 @@
                     height: 100%;
                     border-radius: 50%;
                     object-fit: cover;
+                    border: 1px solid $grey;
                 }
             }
 
@@ -198,7 +199,9 @@
                     }
 
                     &-caption {
-                        padding: 2rem 1rem;
+                        border-left: 1px solid #dbdbdb;
+                        margin-left: 0.5rem;
+                        padding: 2rem 0.5rem;
                         font-size: 1.25rem;
                     }
                 }

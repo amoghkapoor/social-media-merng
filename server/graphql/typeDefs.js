@@ -1,6 +1,11 @@
 const { gql } = require("graphql-tag")
+const {
+    GraphQLUpload,
+} = require('graphql-upload');
+
 
 const typeDefs = gql`
+    scalar Upload
     type Post{
         id: ID!
         body: String!
@@ -37,7 +42,7 @@ const typeDefs = gql`
         username: String!
         name: String!
         email: String!
-        avatarUrl: String!
+        avatarUrl: Upload
     }
     input UpdatePasswordInput{
         id: ID!
@@ -64,15 +69,15 @@ const typeDefs = gql`
         login(username: String!, password: String!): User!
         updateUser(updateInput: UpdateInput): User!
         updatePassword(updatePasswordInput: UpdatePasswordInput): User!
-        createPost(body: String!, imagePath: String): Post! 
+        createPost(body: String!, imagePath: Upload): Post! 
         deletePost(postId: ID!): String!
-        editPost(postId: ID!, body: String!, imagePath: String): Post!
+        editPost(postId: ID!, body: String!, imagePath: Upload, prevImagePath: String): Post!
         resetPassword(password: String!, confirmPassword: String!, token: String!, id: ID!): String!
         createComment(body: String! postId: ID!): Post!
         deleteComment(postId: ID! commentId: ID!): Post!
         likePost(postId: ID!): Post!
         editComment(postId: ID! commentId: ID!, body: String!): Post!
-    }
+    },
 `
 
 module.exports = typeDefs

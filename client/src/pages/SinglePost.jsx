@@ -134,7 +134,13 @@ const SinglePost = () => {
                                 <div className="user-image-container">
                                     <img
                                         className="user-image"
-                                        src={userData?.avatarUrl}
+                                        src={
+                                            userData.avatarUrl.includes(
+                                                "https://avatars.dicebear.com"
+                                            )
+                                                ? `${userData.avatarUrl}`
+                                                : `${process.env.REACT_APP_SERVER_URL}/images/${userData.avatarUrl}.jpeg`
+                                        }
                                         alt={userData?.name}
                                     />
                                 </div>
@@ -241,7 +247,7 @@ const SinglePost = () => {
                                 <div className="post-body">
                                     {post?.imagePath && (
                                         <img
-                                            src={post?.imagePath}
+                                            src={`${process.env.REACT_APP_SERVER_URL}/images/${post.imagePath}.jpeg`}
                                             alt="Post"
                                             className="img"
                                         />

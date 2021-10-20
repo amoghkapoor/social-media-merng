@@ -87,21 +87,11 @@ module.exports.validatePassword = (password, confirmPassword) => {
     }
 }
 
-module.exports.validatePost = (body, imagePath) => {
+module.exports.validatePost = (body) => {
     const errors = {}
 
     if (body.trim() === "") {
         errors.body = "Body must not be empty"
-    }
-
-    if (imagePath) {
-        var index = imagePath.indexOf("/")
-        var index2 = imagePath.indexOf(";")
-        var fileExt = imagePath.slice((index + 1), index2).trim()
-
-        if (fileExt !== "jpg" && fileExt !== "jpeg" && fileExt !== "png") {
-            errors.image = "File must be an image"
-        }
     }
 
     return {

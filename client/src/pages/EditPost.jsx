@@ -3,6 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import FileBase from "react-file-base64";
+import Dropzone from "react-dropzone";
 
 import NoImageSvg from "../assets/NoImageSvg";
 import { Navbar } from "../components";
@@ -16,6 +17,7 @@ const EditPost = () => {
     const { id } = useParams();
     const history = useHistory();
     const [errors, setErrors] = useState({});
+    const [fieldValue, setFieldValue] = useState();
 
     const [values, setValues] = useState({
         body: "",
@@ -52,7 +54,8 @@ const EditPost = () => {
         variables: {
             postId: id,
             body: values.body,
-            imagePath: image,
+            imagePath: fieldValue,
+            prevImagePath: image,
         },
         update(proxy, result) {
             const data = proxy.readQuery({
@@ -118,7 +121,7 @@ const EditPost = () => {
                                             Body
                                         </label>
                                     </div>
-                                    <div className="image-input-wrapper">
+                                    {/*  <div className="image-input-wrapper">
                                         <div className="post-image-container">
                                             {image ? (
                                                 <img src={image} alt="" />
@@ -133,7 +136,29 @@ const EditPost = () => {
                                                 setImage(base64)
                                             }
                                         />
-                                    </div>
+                                    </div> */}
+                                    <Dropzone
+                                        multiple={false}
+                                        onDrop={([file]) => {
+                                            Object.assign(file, {
+                                                preview:
+                                                    URL.createObjectURL(file),
+                                            });
+                                            setFieldValue(file);
+                                        }}
+                                        accept="image/*"
+                                    >
+                                        {({ getRootProps, getInputProps }) => (
+                                            <div {...getRootProps()}>
+                                                <input {...getInputProps()} />
+                                                <p>
+                                                    Drag 'n' drop some files
+                                                    here, or click to select
+                                                    files
+                                                </p>
+                                            </div>
+                                        )}
+                                    </Dropzone>
                                     <button
                                         type="submit"
                                         className="edit-post-submit-btn"
@@ -200,8 +225,18 @@ const FETCH_POSTS_QUERY = gql`
 `;
 
 const EDIT_POST_MUTATION = gql`
-    mutation ($postId: ID!, $body: String!, $imagePath: String) {
-        editPost(postId: $postId, body: $body, imagePath: $imagePath) {
+    mutation (
+        $postId: ID!
+        $body: String!
+        $imagePath: Upload
+        $prevImagePath: String
+    ) {
+        editPost(
+            postId: $postId
+            body: $body
+            imagePath: $imagePath
+            prevImagePath: $prevImagePath
+        ) {
             id
             body
             username

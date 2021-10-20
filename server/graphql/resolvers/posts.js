@@ -1,11 +1,17 @@
 const { AuthenticationError, UserInputError } = require("apollo-server-express")
+const shortid = require("shortid")
+const { createWriteStream, unlink } = require("fs")
+const {
+    GraphQLUpload,
+} = require('graphql-upload');
+const path = require('path')
 
 const Post = require("../../models/Post")
 const checkAuth = require("../../utils/checkAuth")
-
 const { validatePost } = require("../../utils/validators")
 
 module.exports = {
+    Upload: GraphQLUpload,
     Query: {
         async getPost(_, { postId }) {
             try {
@@ -44,7 +50,20 @@ module.exports = {
         async createPost(_, { body, imagePath }, context) {
             const user = checkAuth(context)
 
-            const { errors, valid } = validatePost(body, imagePath)
+            let id = null
+
+            if (imagePath) {
+                const { createReadStream, filename, mimetype, encoding } = await imagePath;
+                const stream = createReadStream();
+
+                id = shortid.generate()
+
+                const pathName = path.join(process.cwd(), `/public/images/${id}.jpeg`)
+
+                await stream.pipe(createWriteStream(pathName))
+            }
+
+            const { errors, valid } = validatePost(body)
 
             if (!valid) {
                 throw new UserInputError('Errors', { errors });
@@ -52,7 +71,7 @@ module.exports = {
 
             const newPost = new Post({
                 body,
-                imagePath,
+                imagePath: id,
                 user: user.id,
                 username: user.username,
                 createdAt: new Date().toISOString(),
@@ -70,6 +89,10 @@ module.exports = {
                 const post = await Post.findById(postId)
                 if (user.username === post.username) {
                     await post.delete()
+                    unlink(path.join(process.cwd(), `/public/images/${post.imagePath}.jpeg`), (err) => {
+                        if (err) throw err;
+                        console.log('file was deleted successfully');
+                    });
                     return "Post successfully deleted"
                 }
                 else {
@@ -102,10 +125,30 @@ module.exports = {
                 throw new UserInputError("Post not found")
             }
         },
-        async editPost(_, { postId, body, imagePath }, context) {
+        async editPost(_, { postId, body, imagePath, prevImagePath }, context) {
             const { username } = checkAuth(context)
 
-            const { errors, valid } = validatePost(body, imagePath)
+            console.log(prevImagePath)
+
+            let id = prevImagePath
+
+            if (imagePath) {
+                const { createReadStream, filename, mimetype, encoding } = await imagePath;
+                const stream = createReadStream();
+
+                unlink(path.join(process.cwd(), `/public/images/${prevImagePath}.jpeg`), (err) => {
+                    if (err) throw err;
+                    console.log('file was deleted successfully');
+                });
+
+                id = shortid.generate()
+
+                const pathName = path.join(process.cwd(), `/public/images/${id}.jpeg`)
+
+                await stream.pipe(createWriteStream(pathName))
+            }
+
+            const { errors, valid } = validatePost(body)
 
             if (!valid) {
                 throw new UserInputError('Errors', { errors });
@@ -116,7 +159,7 @@ module.exports = {
             if (post) {
                 if (post.username === username) {
 
-                    const updatedPost = await Post.findByIdAndUpdate(postId, { body, imagePath, edited: true }, { new: true })
+                    const updatedPost = await Post.findByIdAndUpdate(postId, { body, imagePath: id, edited: true }, { new: true })
 
                     return updatedPost
                 }
