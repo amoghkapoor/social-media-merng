@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import gql from "graphql-tag";
-import FileBase from "react-file-base64";
 import Dropzone from "react-dropzone";
 
 import NoImageSvg from "../assets/NoImageSvg";

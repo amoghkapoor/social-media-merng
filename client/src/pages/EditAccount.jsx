@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/auth";
 import { useMutation, useQuery } from "@apollo/client";
 import gql from "graphql-tag";
-import FileBase from "react-file-base64";
 import PasswordMask from "react-password-mask";
 import * as BsIcon from "react-icons/bs";
 import Dropzone from "react-dropzone";
