@@ -16,7 +16,7 @@
 5. Edit your posts and comments
 6. Forgot password
 7. Update profile
-8. Secure 
+8. Safe and Secure 
 
 #### Packages used
 - Frontend
@@ -27,11 +27,11 @@
     5. React sliding pane - for scroll-to-top button
     6. React tooltips - for tooltips
     7. React icons - diiferent svg icons
-    8. React dropzone - for uploading images
+    8. React dropzone - for selecting images
     9. React confirm alert - Styled confirm component
     10. React password mask - to show and hide passwords
     11. Moment - for customizing dates and time
     12. Lodash - for higher order array functions
     13. JWT-Decode - for decrypting JWT tokens
     14. Apollo Client - for querying data through the GraphQL server
-    15. 
+    15. Apollo upload client - for uploading images to the server 
