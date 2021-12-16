@@ -1,6 +1,10 @@
 # Socialize 
 ## A social media application
 ## Final Project for CS50
+
+## Video Demo
+[YouTube](https://youtube.com/amoghkapoor)
+
 ### Technology Stack 
 - Reactjs
 - Nodejs
