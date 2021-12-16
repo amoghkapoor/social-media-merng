@@ -2,7 +2,7 @@
 ## A social media application
 ## Final Project for CS50
 
-## Video Demo
+### Video Demo
 [YouTube](https://www.youtube.com/channel/UCepPzIxWMF3Ct8ZBOoW49Sw)
 
 ### Technology Stack 
