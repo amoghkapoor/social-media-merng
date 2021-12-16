@@ -14,9 +14,10 @@
 3. Like posts
 4. Comment on posts
 5. Edit your posts and comments
-6. Forgot password
-7. Update profile
-8. Safe and Secure 
+6. User authentication
+7. Forgot password
+8. Update profile
+9. Safe and Secure 
 
 #### Packages used
 - Frontend
