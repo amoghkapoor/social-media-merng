@@ -35,3 +35,20 @@
     13. JWT-Decode - for decrypting JWT tokens
     14. Apollo Client - for querying data through the GraphQL server
     15. Apollo upload client - for uploading images to the server 
+
+- Backend
+    1. Express - Nodejs framework
+    2. GraphQL - for making a graphql backend
+    3. apollo-server-express - a framework built on top of GraphQL
+    4. Graphql Upload - for handling image uploads
+    5. MongoDB - a nosql database
+    6. Mongoose - for easy querying of MongoDB database
+    7. Cors
+    8. Dotenv
+    9. Handlebars - for making email templates
+    10. Nodemailer - for sending mails
+    11. Shortid - unique id creation
+    12. bcryptjs - for hashing user passwords
+    13. crypto
+    14. jsonwebtoken - for making JWTs
+
