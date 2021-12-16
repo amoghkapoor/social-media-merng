@@ -19,6 +19,14 @@
 8. Update profile
 9. Safe and Secure 
 
+### Description
+
+It is a fully functioning social media application based on the MERNG stack - MongoDB, Express, ReactJS, NodeJS, GraphQL. The frontend of the website is made using ReactJS along with numerous libraries listed below. The backend is made with Apollo-GraphQL and Express. It can be used to connect and socialize with other people, hence the name. Users can register and use the application. The application does not share any details with anyone and is totally secure. Users can upload images along with captions, like others' post and comment on them. Reset your password incase if you forget it with the help of your email only. See who all liked your post. 
+
+The application is made fully secure with the help of JWT and bcryptJS library.
+
+Users can request a password reset incase they forget it on their registered email id. 
+
 #### Packages used
 - Frontend
     1. ReactJS -  for making html pages
@@ -53,3 +61,11 @@
     13. crypto
     14. jsonwebtoken - for making JWTs
 
+### TODO: Updates
+- Styling dropzone component
+- Fixing errors in image loading
+- Store images in a bucket using cloudinary
+- Allow users to add videos
+- Few other bugs and fixes
+
+##### All the photos used for demo are from [Unsplash](https://unsplash.com)
