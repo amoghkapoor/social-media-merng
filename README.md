@@ -3,7 +3,7 @@
 ## Final Project for CS50
 
 ### Video Demo
-[YouTube](https://www.youtube.com/channel/UCepPzIxWMF3Ct8ZBOoW49Sw)
+[YouTube](https://youtu.be/aHQBLUpDZgQ)
 
 ### Technology Stack 
 - Reactjs
