@@ -179,17 +179,35 @@ module.exports = {
                     })
                 }
                 else {
-                    const updatedUser = await User.findByIdAndUpdate(id, { username: username, email: email, name: name, avatarUrl: fileId }, { new: true })
+                    const updatedUser = await User.findByIdAndUpdate(
+                        id,
+                        {
+                            username: username,
+                            email: email,
+                            name: name, avatarUrl: fileId
+                        },
+                        { new: true }
+                    )
 
-                    const updatedPost = await Post.updateMany({ user: id }, { username: username })
-                    const postLikes = await Post.updateMany(
-                        { "likes.user": id },
-                        { $set: { "likes.$.username": username } }
+                    const updatedPost = await Post.updateMany(
+                        { user: id },
+                        { username: username },
                     )
-                    const postComments = await Post.updateMany(
-                        { "comments.user": id },
-                        { $set: { "comments.$.username": username } }
-                    )
+                    try {
+                        const postLikes = await Post.updateMany(
+                            { "likes.user": id },
+                            { $set: { "likes.$[elem].username": username } },
+                            { arrayFilter: [{ "elem.user": id }] }
+                        )
+                        const postComments = await Post.updateMany(
+                            { "comments.user": id },
+                            { $set: { "comments.$[elem].username": username } },
+                            { arrayFilters: [{ "elem.user": id }] }
+                        )
+                    }
+                    catch (err) {
+                        // throw new UserInputError('Errors', { err });
+                    }
 
                     const token = generateToken(updatedUser)
 
@@ -203,16 +221,21 @@ module.exports = {
             else {
                 const updatedUser = await User.findByIdAndUpdate(id, { email: email, name: name, avatarUrl: fileId }, { new: true })
 
-                const updatedPost = await Post.updateMany({ user: id }, { username: username })
+                const updatedPost = await Post.updateMany(
+                    { user: id },
+                    { username: username }
+                )
                 const postLikes = await Post.updateMany(
                     { "likes.user": id },
-                    { $set: { "likes.$.username": username } }
+                    { $set: { "likes.$[elem].username": username } },
+                    { arrayFilters: [{ "elem.user": id }] }
                 )
                 const postComments = await Post.updateMany(
                     { "comments.user": id },
-                    { $set: { "comments.$.username": username } }
-                )
+                    { $set: { "comments.$[elem].username": username } },
+                    { arrayFilters: [{ "elem.user": id }] }
 
+                )
                 const token = generateToken(updatedUser)
 
                 return {

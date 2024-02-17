@@ -1,0 +1,146 @@
+.edit-post-container {
+  padding: 2rem;
+  padding-left: 4rem;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.edit-post-container .left {
+  width: 60%;
+}
+.edit-post-container .left .heading {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+.edit-post-container .left .edit-post-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.edit-post-container .left .edit-post-form .input-wrapper {
+  position: relative;
+  width: 60%;
+  margin-bottom: 1rem;
+}
+.edit-post-container .left .edit-post-form .input-wrapper .edit-post-caption-input {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  border: 2px solid #7d8497;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  font-size: 1.25rem;
+}
+.edit-post-container .left .edit-post-form .input-wrapper .edit-post-caption-input:hover:not(.error) {
+  border-color: #78b3e4;
+}
+.edit-post-container .left .edit-post-form .input-wrapper .edit-post-caption-input:focus:not(.error) {
+  border-color: #1976d2;
+}
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(8px);
+  }
+  75% {
+    transform: translateX(-8px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.edit-post-container .left .edit-post-form .input-wrapper .error {
+  border-color: #ef5350;
+  animation: shake 0.1635s 0s 3;
+}
+.edit-post-container .left .edit-post-form .input-wrapper .body-label {
+  display: block;
+  position: absolute;
+  top: 0;
+  color: #5d5d5d;
+  transition: 0.2s ease-in-out transform;
+  font-size: 1rem;
+  pointer-events: none;
+}
+.edit-post-container .left .edit-post-form .edit-post-submit-btn {
+  width: 60%;
+  padding: 0.75rem 1rem;
+  font-size: 1.25rem;
+  background-color: #4482ff;
+  border-radius: 3rem;
+  border: none;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.edit-post-container .left .edit-post-form .edit-post-submit-btn:hover {
+  background-color: #1976d2;
+}
+.edit-post-container .left .edit-post-form .image-input-wrapper {
+  margin-bottom: 1rem;
+}
+.edit-post-container .left .edit-post-form .image-input-wrapper .post-image-container {
+  border: 2px solid #7d8497;
+  width: 60%;
+  height: 25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  background-color: #e9ecf2;
+}
+.edit-post-container .left .edit-post-form .image-input-wrapper .post-image-container img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 0.5rem;
+}
+.edit-post-container .left .edit-post-form .image-input-wrapper .post-image-container svg {
+  width: 100%;
+  height: 100%;
+}
+.edit-post-container .left .error-container {
+  position: absolute;
+  right: 2rem;
+  top: 0;
+  margin-top: 3rem;
+  color: #ef5350;
+}
+.edit-post-container .svg-container {
+  width: 60%;
+  height: 70vh;
+}
+.edit-post-container .svg-container svg {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.access-denied {
+  position: relative;
+  width: 100vw;
+  height: 80vh;
+}
+.access-denied .error-message {
+  position: absolute;
+  top: 50%;
+  right: 3%;
+  font-size: 2rem;
+}
+.access-denied .svg-container {
+  width: 80%;
+  height: 100%;
+  z-index: -1;
+}
+.access-denied .svg-container svg {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}/*# sourceMappingURL=editPost.css.map */

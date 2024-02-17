@@ -37,8 +37,8 @@ const UpdateUser = () => {
             window.location.pathname = `/profile/${userData.username}`;
         },
         onError(err) {
-            console.error(err.graphQLErrors[0].extensions.errors);
-            setErrors(err.graphQLErrors[0].extensions.errors);
+            console.error(err.graphQLErrors[0].extensions);
+            setErrors(err.graphQLErrors[0].extensions.exception.stacktrace);
         },
         variables: {
             id: values.id,
@@ -48,8 +48,6 @@ const UpdateUser = () => {
             avatarUrl: fieldValue,
         },
     });
-
-    console.log(fieldValue);
 
     function updateUserCallback() {
         updateUser();

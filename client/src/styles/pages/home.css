@@ -1,0 +1,47 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.home-container .home-heading {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+
+.posts-grid {
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 90%;
+}
+@media only screen and (min-width: 768px) {
+  .posts-grid {
+    width: 55%;
+  }
+}
+
+.react-scrolltop-button {
+  background-color: #fff;
+  padding: 0.75rem !important;
+  border-color: #4482ff !important;
+  right: 2% !important;
+  bottom: 3% !important;
+}
+.react-scrolltop-button:hover {
+  background-color: #4482ff !important;
+}
+.react-scrolltop-button:hover svg {
+  fill: #fff;
+}
+.react-scrolltop-button svg {
+  transform: scale(1.2);
+  fill: #4482ff;
+}
+
+.loader-container {
+  z-index: 100;
+}/*# sourceMappingURL=home.css.map */

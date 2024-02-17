@@ -1,0 +1,147 @@
+.add-post-container {
+  padding: 2rem;
+  padding-left: 4rem;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.add-post-container .left {
+  width: 60%;
+}
+.add-post-container .left .heading {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.add-post-container .left .add-post-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.add-post-container .left .add-post-form .input-wrapper {
+  position: relative;
+  width: 60%;
+  margin-bottom: 2rem;
+}
+.add-post-container .left .add-post-form .input-wrapper .add-post-caption-input {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  border: 2px solid #7d8497;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  font-size: 1.25rem;
+}
+.add-post-container .left .add-post-form .input-wrapper .add-post-caption-input:hover:not(.error) {
+  border-color: #78b3e4;
+}
+.add-post-container .left .add-post-form .input-wrapper .add-post-caption-input:focus:not(.error) {
+  border-color: #1976d2;
+}
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(8px);
+  }
+  75% {
+    transform: translateX(-8px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.add-post-container .left .add-post-form .input-wrapper .error {
+  border-color: #ef5350;
+  animation: shake 0.1635s 0s 3;
+}
+.add-post-container .left .add-post-form .input-wrapper .caption-label {
+  display: block;
+  position: absolute;
+  opacity: 0;
+  top: 0.5rem;
+  color: #5d5d5d;
+  transition: 0.2s ease-in-out transform;
+  font-size: 1rem;
+  pointer-events: none;
+}
+.add-post-container .left .add-post-form .input-wrapper .add-post-caption-input:-moz-placeholder-shown + .caption-label {
+  visibility: hidden;
+  z-index: -1;
+  -moz-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+.add-post-container .left .add-post-form .input-wrapper .add-post-caption-input:placeholder-shown + .caption-label {
+  visibility: hidden;
+  z-index: -1;
+  transition: 0.2s ease-in-out;
+}
+.add-post-container .left .add-post-form .input-wrapper .add-post-caption-input:not(:-moz-placeholder-shown) + .caption-label, .add-post-container .left .add-post-form .input-wrapper .add-post-caption-input:focus:not(:-moz-placeholder-shown) + .caption-label {
+  visibility: visible;
+  z-index: 1;
+  opacity: 1;
+  transform: translateY(-10px);
+  -moz-transition: 0.2s ease-in-out transform;
+  transition: 0.2s ease-in-out transform;
+}
+.add-post-container .left .add-post-form .input-wrapper .add-post-caption-input:not(:placeholder-shown) + .caption-label,
+.add-post-container .left .add-post-form .input-wrapper .add-post-caption-input:focus:not(:placeholder-shown) + .caption-label {
+  visibility: visible;
+  z-index: 1;
+  opacity: 1;
+  transform: translateY(-10px);
+  transition: 0.2s ease-in-out transform;
+}
+.add-post-container .left .add-post-form .error-container {
+  position: absolute;
+  right: 2rem;
+  top: 0;
+  margin-top: 2rem;
+  color: #ef5350;
+}
+.add-post-container .left .add-post-form .post-submit-btn {
+  width: 60%;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: 1.25rem;
+  background-color: #4482ff;
+  border-radius: 3rem;
+  border: none;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.add-post-container .left .add-post-form .post-submit-btn:hover {
+  background-color: #1976d2;
+}
+.add-post-container .left .add-post-form .post-image-container {
+  border: 2px solid #7d8497;
+  width: 60%;
+  height: 25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  background-color: #e9ecf2;
+}
+.add-post-container .left .add-post-form .post-image-container img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.add-post-container .left .add-post-form .post-image-container svg {
+  width: 100%;
+  height: 100%;
+}
+.add-post-container .svg-container {
+  height: 100%;
+  width: 40%;
+}
+.add-post-container .svg-container svg {
+  width: 100%;
+  height: 100%;
+}/*# sourceMappingURL=addPost.css.map */

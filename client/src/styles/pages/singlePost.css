@@ -1,0 +1,218 @@
+.single-post-outer-container {
+  padding: 2rem 5%;
+  display: flex;
+  flex-direction: column;
+}
+.single-post-outer-container .single-post-inner-container {
+  display: flex;
+}
+.single-post-outer-container .single-post-inner-container .user-info {
+  height: 100%;
+  width: 39%;
+  border: 1px solid #dbdbdb;
+  padding: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-image-container {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #e9ecf2;
+  margin-bottom: 1rem;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-image-container .user-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 1px solid #7d8497;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .username {
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .user-name {
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .post-createdAt {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .post-createdAt .post-time {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: rgb(105, 105, 105);
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .post-createdAt .edited {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: rgb(105, 105, 105);
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .likes-and-comment {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  font-style: 1.5rem;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .likes-and-comment .likes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .likes-and-comment .likes .left {
+  cursor: pointer;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .likes-and-comment .likes .right {
+  display: flex;
+  align-items: center;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .likes-and-comment .likes .right .count {
+  margin-right: 0.5rem;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .likes-and-comment .likes .right .icon {
+  cursor: pointer;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .likes-and-comment .comments {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .likes-and-comment .comments .right {
+  display: flex;
+  align-items: center;
+}
+.single-post-outer-container .single-post-inner-container .user-info .user-and-post-data .likes-and-comment .comments .right .count {
+  margin-right: 0.5rem;
+}
+.single-post-outer-container .single-post-inner-container .user-info .post-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.single-post-outer-container .single-post-inner-container .user-info .post-buttons .edit-button {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #4482ff;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.single-post-outer-container .single-post-inner-container .user-info .post-buttons .edit-button:hover {
+  background-color: #1976d2;
+}
+.single-post-outer-container .single-post-inner-container .user-info .post-buttons .delete-button {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #ef5350;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.single-post-outer-container .single-post-inner-container .user-info .post-buttons .delete-button:hover {
+  background-color: #f44336;
+}
+.single-post-outer-container .single-post-inner-container .post-content-container {
+  width: 100%;
+  margin-left: 3rem;
+  padding: 0 3rem;
+  display: flex;
+  flex-direction: column;
+}
+.single-post-outer-container .single-post-inner-container .post-content-container .heading-container {
+  display: flex;
+  width: 100%;
+  font-size: 2rem;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.single-post-outer-container .single-post-inner-container .post-content-container .heading-container .like-btn {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  font-size: 1.75rem;
+}
+.single-post-outer-container .single-post-inner-container .post-content-container .post-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.single-post-outer-container .single-post-inner-container .post-content-container .post-content .post-body {
+  height: 85%;
+  border: 1px solid #dbdbdb;
+  display: flex;
+}
+.single-post-outer-container .single-post-inner-container .post-content-container .post-content .post-body .img {
+  width: 70%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.single-post-outer-container .single-post-inner-container .post-content-container .post-content .post-body-caption {
+  border-left: 1px solid #dbdbdb;
+  margin-left: 0.5rem;
+  padding: 2rem 0.5rem;
+  font-size: 1.25rem;
+}
+.single-post-outer-container .single-post-inner-container .post-content-container .post-content .comment-input-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.single-post-outer-container .single-post-inner-container .post-content-container .post-content .comment-input-container .comment-input {
+  padding: 0.75rem 1rem;
+  width: 100%;
+  border-bottom: 1px solid #000;
+  background: transparent;
+}
+.single-post-outer-container .single-post-inner-container .post-content-container .post-content .comment-input-container .comment-button {
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000;
+  cursor: not-allowed;
+}
+.single-post-outer-container .comments-container {
+  border-top: 1px solid #dbdbdb;
+  margin-top: 2rem;
+  padding-top: 2rem;
+}
+.single-post-outer-container .comments-container .heading {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+.single-post-outer-container .comments-container .no-comment {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.single-post-outer-container .comments-container .no-comment img {
+  width: 40rem;
+}/*# sourceMappingURL=singlePost.css.map */
