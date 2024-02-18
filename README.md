@@ -2,9 +2,9 @@
 ## A social media application
 ## Final Project for CS50
 
---
+
 Some of the features of application is no longer functional due to the updates to MongoDB, resulting in deprecating of some functions. 
---
+
 
 ### Video Demo
 [YouTube](https://youtu.be/aHQBLUpDZgQ)
